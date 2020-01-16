@@ -49,7 +49,7 @@ public class DriveTrain extends SubsystemBase {
     backLeft.follow(frontLeft);
     backRight.follow(frontRight);
     
-    frontLeft.setInverted(false);
+    frontLeft.setInverted(true);
     frontRight.setInverted(false);
 
     //sets PID gains for position control for the left pid controller
@@ -96,7 +96,6 @@ public class DriveTrain extends SubsystemBase {
      leftController.setSmartMotionAllowedClosedLoopError(Constants.dSmart_Motion_Allowed_Error, Constants.dSmart_Motion_Slot);
      rightController.setSmartMotionAllowedClosedLoopError(Constants.dSmart_Motion_Allowed_Error, Constants.dSmart_Motion_Slot);
  
-
   }
 
   @Override
@@ -105,7 +104,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void drivePercentOutput(double left, double right) {
-    frontLeft.set(-left); //since the motors face opposite directions
+    frontLeft.set(left); 
     frontRight.set(right);
   }
 
@@ -119,4 +118,29 @@ public class DriveTrain extends SubsystemBase {
     rightController.setReference(goal, ControlType.kSmartMotion, Constants.dSmart_Motion_Slot);
   }
   
+  public void stop() {
+    drivePercentOutput(0.0,0.0);
+  }
+
+  public double getFrontLeftCurrent() {
+    return frontLeft.getOutputCurrent();
+  }
+
+  public double getFrontRightCurrent() {
+    return frontRight.getOutputCurrent();
+  }
+
+  public double getBackLeftCurrent() {
+    return backLeft.getOutputCurrent();
+  }
+
+  public double getBackRightCurrent() {
+    return backRight.getOutputCurrent();
+  }
+  
+  public double getLeftEncoderCount() {
+    return leftEncoder.get();
+  }
+}
+
 }
