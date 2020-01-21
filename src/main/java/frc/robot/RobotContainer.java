@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Jevois;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -27,7 +28,8 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   public static final LogitechGamingPad gamepad = new LogitechGamingPad(0);
-  public static final DriveTrain drive = new DriveTrain();
+  //public static final DriveTrain drive = new DriveTrain();
+  public static final Jevois jevois = new Jevois();
 
   public JoystickButton driveA;
   public JoystickButton driveB;
@@ -41,6 +43,8 @@ public class RobotContainer {
     // Configure the button bindings
     
     configureButtonBindings();
+
+    jevois.initializeSerialPort();
   }
 
   /**

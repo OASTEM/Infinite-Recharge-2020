@@ -138,9 +138,9 @@ public class DriveTrain extends SubsystemBase {
     return backRight.getOutputCurrent();
   }
   
-  public double getLeftEncoderCount() {
-    return leftEncoder.get();
+  public void getLeftEncoderCount() {
+    //return leftEncoder.get();
   }
 }
 
-}
+
