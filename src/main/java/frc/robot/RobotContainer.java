@@ -25,7 +25,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveDistance m_autoCommand = new DriveDistance();
   public static final LogitechGamingPad gamepad = new LogitechGamingPad(0);
-  //public static final DriveTrain drive = new DriveTrain();
+  public static final DriveTrain drive = new DriveTrain();
   public static final Jevois jevois = new Jevois();
 
   public JoystickButton driveA;
