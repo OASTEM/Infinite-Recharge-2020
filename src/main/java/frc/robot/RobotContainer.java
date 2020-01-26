@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Jevois;
+import frc.robot.subsystems.Climber;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -23,10 +24,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveDistance m_autoCommand = new DriveDistance();
+  private final RunFrontLeg m_autoCommand = new RunFrontLeg(320);
   public static final LogitechGamingPad gamepad = new LogitechGamingPad(0);
-  public static final DriveTrain drive = new DriveTrain();
+  //public static final DriveTrain drive = new DriveTrain();
   public static final Jevois jevois = new Jevois();
+  public static final Climber climber = new Climber();
 
   public JoystickButton driveA;
   public JoystickButton driveB;
