@@ -23,7 +23,7 @@ public class ControlPanelMan extends SubsystemBase {
    * Creates a new ControlPanelMan.
    */
 
-  //private VictorSPX cpMan = new VictorSPX(10);
+  private VictorSPX cpMan = new VictorSPX(10);
   // need to change ID of VictorSPX
 
   private I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -35,6 +35,8 @@ public class ControlPanelMan extends SubsystemBase {
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+
+  private final String[] colorList = {"Yellow", "Red", "Green", "Blue"};
 
   private String colorString;
 
@@ -69,7 +71,7 @@ public class ControlPanelMan extends SubsystemBase {
     System.out.println(colorString);
   }
   
-  public void runCPMan(double power) {
-    //cpMan.set(ControlMode.PercentOutput, power);
+  public void run(double power) {
+    cpMan.set(ControlMode.PercentOutput, power);
   }
 }
