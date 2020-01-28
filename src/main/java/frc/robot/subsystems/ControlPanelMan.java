@@ -74,4 +74,14 @@ public class ControlPanelMan extends SubsystemBase {
   public void run(double power) {
     cpMan.set(ControlMode.PercentOutput, power);
   }
+
+  public String getColor() {
+    int colorInt = 0;
+    for (int i = 0; i < 3; i++) {
+      if (colorString.equals(colorList[i])) {
+        colorInt = i;
+      }
+    }
+    return colorList[(colorInt+2)%4];
+  }
 }
