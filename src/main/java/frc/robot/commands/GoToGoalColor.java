@@ -25,19 +25,21 @@ public class GoToGoalColor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.cp_Man.run(0.2);
+    //RobotContainer.cp_Man.run(0.2);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    System.out.println(RobotContainer.cp_Man.getColor());
+    System.out.println((RobotContainer.cp_Man.getColor().equals(goalColor)));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     RobotContainer.cp_Man.run(0.0);
+    System.out.println("Finished");
   }
 
   // Returns true when the command should end.

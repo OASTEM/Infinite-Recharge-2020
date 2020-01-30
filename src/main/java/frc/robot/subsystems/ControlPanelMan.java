@@ -36,7 +36,7 @@ public class ControlPanelMan extends SubsystemBase {
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
-  private final String[] colorList = {"Yellow", "Red", "Green", "Blue"};
+  private final String[] colorList = {"Y", "R", "G", "B"};
 
   private String colorString;
 
@@ -56,19 +56,19 @@ public class ControlPanelMan extends SubsystemBase {
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
     if (match.color == kBlueTarget) {
-      colorString = "Blue";
+      colorString = "B";
     } else if (match.color == kRedTarget) {
-      colorString = "Red";
+      colorString = "R";
     } else if (match.color == kGreenTarget) {
-      colorString = "Green";
+      colorString = "G";
     } else if (match.color == kYellowTarget) {
-      colorString = "Yellow";
+      colorString = "Y";
     } else {
       colorString = "Unknown";
     }
 
-    System.out.println("ControlPanelMan - periodic(), " + match.color.toString());
-    System.out.println(colorString);
+    //System.out.println("ControlPanelMan - periodic(), " + match.color.toString());
+    //System.out.println(colorString);
   }
   
   public void run(double power) {
@@ -77,7 +77,7 @@ public class ControlPanelMan extends SubsystemBase {
 
   public String getColor() {
     int colorInt = 0;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
       if (colorString.equals(colorList[i])) {
         colorInt = i;
       }
