@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.DriveTrain;
@@ -36,6 +37,7 @@ public class RobotContainer {
   public JoystickButton driveB;
   public JoystickButton driveX;
   public JoystickButton driveY;
+  public JoystickButton driveRightBumper;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -57,7 +59,21 @@ public class RobotContainer {
   private void configureButtonBindings() {
     driveA = new JoystickButton(gamepad, 1);
     driveA.whenPressed(new GamepadSlowModeDrive());
+
+    driveB = new JoystickButton(gamepad, 2);
+    //driveB.whenPressed();
+
+    driveX = new JoystickButton(gamepad, 3);
+    //driveX.whenPressed();
+
+    driveY = new JoystickButton(gamepad, 4);
+    //driveY.whenPressed();
+    
+    driveRightBumper = new JoystickButton(gamepad, 6);
+    //driveRightBumper.whenPressed(new GoToGoalColor(DriverStation.getInstance().getGameSpecificMessage().substring(0, 1)));
+    driveRightBumper.whenPressed(new GoToGoalColor("R"));
   }
+
 
 
   /**

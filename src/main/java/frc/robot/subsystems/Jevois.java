@@ -36,9 +36,9 @@ public class Jevois extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    backgroundUpdate();
-    System.out.println("Distance: " + getDistance());
-    System.out.println("Offset Angle: " +getOffsetAngle());
+    //backgroundUpdate();
+    //System.out.println("Distance: " + getDistance());
+    //System.out.println("Offset Angle: " +getOffsetAngle());
   }
 
   public void initializeSerialPort() {
