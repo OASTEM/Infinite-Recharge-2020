@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
@@ -14,6 +15,10 @@ public class GamepadDrive extends CommandBase {
   /**
    * Creates a new GamepadDrive.
    */
+
+  Timer timer;
+  double time;
+
   public GamepadDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
     //addRequirements(RobotContainer.drive);
@@ -22,12 +27,39 @@ public class GamepadDrive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer = new Timer();
+    timer.start();
+
+    time = timer.get();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //RobotContainer.drive.drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY(), RobotContainer.gamepad.getRightAnalogY());
+    if(RobotContainer.drive.getLeftMotorOutput() + RobotContainer.drive.getRightMotorOutput() <= 0.1) {
+      timer.reset();
+    }
+    else {
+      if(time == .5){
+        RobotContainer.drive.stop();
+        Timer.delay(0.1);
+        RobotContainer.drive.drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY(), RobotContainer.gamepad.getRightAnalogY());
+      }
+      else if(time == 1) {
+        RobotContainer.drive.stop();
+        Timer.delay(0.1);
+        RobotContainer.drive.drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY(), RobotContainer.gamepad.getRightAnalogY());
+      }
+      else if(time == 2.5) {
+        RobotContainer.drive.stop();
+        Timer.delay(0.1);
+        RobotContainer.drive.drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY(), RobotContainer.gamepad.getRightAnalogY());
+      }
+      else{
+        double multi = 1 - (RobotContainer.gamepad.getLeftTriggerValue() * .5);
+        RobotContainer.drive.drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY() * multi, RobotContainer.gamepad.getRightAnalogY() * multi);
+      }
+    }
   }
 
   // Called once the command ends or is interrupted.

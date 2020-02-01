@@ -15,9 +15,12 @@ import com.revrobotics.EncoderType;
 import com.revrobotics.CANPIDController.AccelStrategy;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import frc.robot.commands.GamepadDrive;
 
 public class DriveTrain extends SubsystemBase {
   /**
@@ -36,8 +39,8 @@ public class DriveTrain extends SubsystemBase {
 
   public DriveTrain() {
     frontLeft = new CANSparkMax(1, MotorType.kBrushless);
-    frontRight = new CANSparkMax(2, MotorType.kBrushless);
-    backLeft = new CANSparkMax(3, MotorType.kBrushless);
+    backLeft = new CANSparkMax(2, MotorType.kBrushless);
+    frontRight = new CANSparkMax(3, MotorType.kBrushless);
     backRight = new CANSparkMax(4, MotorType.kBrushless);
 
     leftEncoder = frontLeft.getEncoder();
@@ -52,7 +55,7 @@ public class DriveTrain extends SubsystemBase {
     frontLeft.setInverted(true);
     frontRight.setInverted(false);
 
-    //sets PID gains for position control for the left pid controller
+    /*//sets PID gains for position control for the left pid controller
     leftController.setP(Constants.dPos_kP, Constants.dPos_Slot);
     leftController.setI(Constants.dPos_kI, Constants.dPos_Slot);
     leftController.setD(Constants.dPos_kD, Constants.dPos_Slot);
@@ -95,12 +98,13 @@ public class DriveTrain extends SubsystemBase {
  
      leftController.setSmartMotionAllowedClosedLoopError(Constants.dSmart_Motion_Allowed_Error, Constants.dSmart_Motion_Slot);
      rightController.setSmartMotionAllowedClosedLoopError(Constants.dSmart_Motion_Allowed_Error, Constants.dSmart_Motion_Slot);
- 
+    */
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY(), RobotContainer.gamepad.getRightAnalogY());
   }
 
   public void drivePercentOutput(double left, double right) {
@@ -140,6 +144,19 @@ public class DriveTrain extends SubsystemBase {
   
   public void getLeftEncoderCount() {
     //return leftEncoder.get();
+  }
+
+  public double getLeftMotorOutput() {
+    return frontLeft.get();
+  }
+
+  public double getRightMotorOutput() {
+    return frontRight.get();
+  }
+  
+  public void reset() {
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
   }
 }
 
