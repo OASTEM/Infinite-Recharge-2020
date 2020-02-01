@@ -35,6 +35,7 @@ public class BringClimberUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("Bring Climber up - execute()");
     SmartDashboard.putNumber("Position", RobotContainer.climber.getFrontPosition());
   }
 

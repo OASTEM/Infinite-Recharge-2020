@@ -7,15 +7,9 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.HighShooter;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Jevois;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.ControlPanelMan;
+import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -30,12 +24,13 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final BringClimberUp m_autoCommand = new BringClimberUp(320);
   public static final LogitechGamingPad gamepad = new LogitechGamingPad(0);
-  public static final DriveTrain drive = new DriveTrain();
+  //public static final DriveTrain drive = new DriveTrain();
   public static final Jevois jevois = new Jevois();
   public static final Climber climber = new Climber();
   public static final ControlPanelMan cp_Man = new ControlPanelMan();
   public static final HighShooter highShooter = new HighShooter();
-  public final static Intake intake = new Intake();
+  public static final Intake intake = new Intake();
+  public static final NavX navX = new NavX();
 
   public JoystickButton driveA;
   public JoystickButton driveB;
@@ -66,7 +61,7 @@ public class RobotContainer {
     //driveA.whenPressed(new GamepadSlowModeDrive());
 
     driveB = new JoystickButton(gamepad, 2);
-    //driveB.whenPressed();
+    driveB.whenPressed(new BringClimberUp(1));
 
     driveX = new JoystickButton(gamepad, 3);
     driveX.whenPressed(new DriveDistance(0));
@@ -75,8 +70,9 @@ public class RobotContainer {
     //driveY.whenPressed();
     
     driveRightBumper = new JoystickButton(gamepad, 6);
+    driveRightBumper.whenPressed(new GoToGoalColor("R"));
     //driveRightBumper.whenPressed(new GoToGoalColor(DriverStation.getInstance().getGameSpecificMessage().substring(0, 1)));
-    driveRightBumper.whenPressed(new Shoot());
+    //driveRightBumper.whenPressed(new Shoot());
 
     driveLeftBumper = new JoystickButton(gamepad, 5);
     driveLeftBumper.whenPressed(new IntakeBalls());

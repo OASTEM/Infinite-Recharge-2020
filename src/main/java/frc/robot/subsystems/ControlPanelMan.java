@@ -66,9 +66,6 @@ public class ControlPanelMan extends SubsystemBase {
     } else {
       colorString = "Unknown";
     }
-
-    //System.out.println("ControlPanelMan - periodic(), " + match.color.toString());
-    //System.out.println(colorString);
   }
   
   public void run(double power) {

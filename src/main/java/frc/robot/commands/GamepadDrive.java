@@ -36,7 +36,7 @@ public class GamepadDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.drive.getLeftMotorOutput() + RobotContainer.drive.getRightMotorOutput() <= 0.1) {
+    /*if(RobotContainer.drive.getLeftMotorOutput() + RobotContainer.drive.getRightMotorOutput() <= 0.1) {
       timer.reset();
     }
     else {
@@ -59,7 +59,7 @@ public class GamepadDrive extends CommandBase {
         double multi = 1 - (RobotContainer.gamepad.getLeftTriggerValue() * .5);
         RobotContainer.drive.drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY() * multi, RobotContainer.gamepad.getRightAnalogY() * multi);
       }
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.

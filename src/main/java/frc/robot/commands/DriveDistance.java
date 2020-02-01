@@ -21,15 +21,15 @@ public class DriveDistance extends CommandBase {
   public DriveDistance(double goal) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.goal = goal;
-    addRequirements(RobotContainer.drive);
+    //addRequirements(RobotContainer.drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.drive.reset();
+    //RobotContainer.drive.reset();
     Timer.delay(0.1);
-    RobotContainer.drive.drivePosition(goal);
+    //RobotContainer.drive.drivePosition(goal);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,7 +40,7 @@ public class DriveDistance extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.drive.stop();
+    //RobotContainer.drive.stop();
   }
 
   // Returns true when the command should end.
