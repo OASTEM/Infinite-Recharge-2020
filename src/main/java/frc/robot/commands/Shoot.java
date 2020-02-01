@@ -10,29 +10,31 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class GamepadSlowModeDrive extends CommandBase {
+public class Shoot extends CommandBase {
   /**
-   * Creates a new GamepadDrive.
+   * Creates a new Shoot.
    */
-  public GamepadSlowModeDrive() {
+
+  public Shoot() {
     // Use addRequirements() here to declare subsystem dependencies.
-    //addRequirements(RobotContainer.drive);
+    addRequirements(RobotContainer.highShooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    RobotContainer.highShooter.shoot(0.6);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //RobotContainer.drive.drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY()*.5, RobotContainer.gamepad.getRightAnalogY()*.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotContainer.highShooter.stop();
   }
 
   // Returns true when the command should end.
