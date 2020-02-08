@@ -16,7 +16,7 @@ public class GamepadSlowModeDrive extends CommandBase {
    */
   public GamepadSlowModeDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
-    //addRequirements(RobotContainer.drive);
+    addRequirements(RobotContainer.drive);
   }
 
   // Called when the command is initially scheduled.
@@ -27,7 +27,7 @@ public class GamepadSlowModeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //RobotContainer.drive.drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY()*.5, RobotContainer.gamepad.getRightAnalogY()*.5);
+    RobotContainer.drive.drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY()*.5, RobotContainer.drivePad.getRightAnalogY()*.5);
   }
 
   // Called once the command ends or is interrupted.

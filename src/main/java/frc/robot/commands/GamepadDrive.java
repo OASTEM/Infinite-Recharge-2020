@@ -21,7 +21,7 @@ public class GamepadDrive extends CommandBase {
 
   public GamepadDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
-    //addRequirements(RobotContainer.drive);
+    addRequirements(RobotContainer.drive);
   }
 
   // Called when the command is initially scheduled.
@@ -36,6 +36,7 @@ public class GamepadDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotContainer.drive.drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
     /*if(RobotContainer.drive.getLeftMotorOutput() + RobotContainer.drive.getRightMotorOutput() <= 0.1) {
       timer.reset();
     }
@@ -43,21 +44,21 @@ public class GamepadDrive extends CommandBase {
       if(time == .5){
         RobotContainer.drive.stop();
         Timer.delay(0.1);
-        RobotContainer.drive.drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY(), RobotContainer.gamepad.getRightAnalogY());
+        RobotContainer.drive.drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
       }
       else if(time == 1) {
         RobotContainer.drive.stop();
         Timer.delay(0.1);
-        RobotContainer.drive.drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY(), RobotContainer.gamepad.getRightAnalogY());
+        RobotContainer.drive.drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
       }
       else if(time == 2.5) {
         RobotContainer.drive.stop();
         Timer.delay(0.1);
-        RobotContainer.drive.drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY(), RobotContainer.gamepad.getRightAnalogY());
+        RobotContainer.drive.drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
       }
       else{
-        double multi = 1 - (RobotContainer.gamepad.getLeftTriggerValue() * .5);
-        RobotContainer.drive.drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY() * multi, RobotContainer.gamepad.getRightAnalogY() * multi);
+        double multi = 1 - (RobotContainer.drivePad.getLeftTriggerValue() * .5);
+        RobotContainer.drive.drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY() * multi, RobotContainer.drivePad.getRightAnalogY() * multi);
       }
     }*/
   }

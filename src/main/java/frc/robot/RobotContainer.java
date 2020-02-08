@@ -22,8 +22,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final BringClimberUp m_autoCommand = new BringClimberUp(320);
-  public static final LogitechGamingPad gamepad = new LogitechGamingPad(0);
+  private final BringClimberUp m_autoCommand = new BringClimberUp();
+  public static final LogitechGamingPad drivePad = new LogitechGamingPad(0);
+  public static final LogitechGamingPad opPad = new LogitechGamingPad(1);
   public static final DriveTrain drive = new DriveTrain();
   public static final Jevois jevois = new Jevois();
   public static final Climber climber = new Climber();
@@ -36,8 +37,17 @@ public class RobotContainer {
   public JoystickButton driveB;
   public JoystickButton driveX;
   public JoystickButton driveY;
+  public JoystickButton driveStart;
   public JoystickButton driveRightBumper;
   public JoystickButton driveLeftBumper;
+  
+  public JoystickButton opA;
+  public JoystickButton opB;
+  public JoystickButton opX;
+  public JoystickButton opY;
+  public JoystickButton opStart;
+  public JoystickButton opLeftBumper;
+  public JoystickButton opRightBumper;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -57,26 +67,49 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    driveA = new JoystickButton(gamepad, 1);
-    //driveA.whenPressed(new GamepadSlowModeDrive());
+    driveA = new JoystickButton(drivePad, 1);
+    //driveA.whenPressed(new drivePadSlowModeDrive());
 
-    driveB = new JoystickButton(gamepad, 2);
-    driveB.whenPressed(new BringClimberUp(1));
+    driveB = new JoystickButton(drivePad, 2);
+    driveB.whenPressed(new BringClimberUp());
 
-    driveX = new JoystickButton(gamepad, 3);
+    driveX = new JoystickButton(drivePad, 3);
     driveX.whenPressed(new DriveDistance(0));
 
-    driveY = new JoystickButton(gamepad, 4);
+    driveY = new JoystickButton(drivePad, 4);
     //driveY.whenPressed();
     
-    driveRightBumper = new JoystickButton(gamepad, 6);
+    driveRightBumper = new JoystickButton(drivePad, 6);
     driveRightBumper.whenPressed(new GoToGoalColor("R"));
     //driveRightBumper.whenPressed(new GoToGoalColor(DriverStation.getInstance().getGameSpecificMessage().substring(0, 1)));
     //driveRightBumper.whenPressed(new Shoot());
 
-    driveLeftBumper = new JoystickButton(gamepad, 5);
+    driveLeftBumper = new JoystickButton(drivePad, 5);
     driveLeftBumper.whenPressed(new IntakeBalls());
+
+    driveStart = new JoystickButton(drivePad, 8);
+    driveStart.whenPressed(new SelfTestCommand());
+  
+    opA = new JoystickButton(opPad, 1);
+    //opA.whenPressed(command);
+
+    opB = new JoystickButton(opPad, 2);
+    //opB.whenPressed(command);
+
+    opX = new JoystickButton(opPad, 3);
+    //opX.whenPressed(command);
+
+    opY = new JoystickButton(opPad, 4);
+    //opY.whenPressed(command);
+
+    opLeftBumper = new JoystickButton(opPad, 5);
+    //opLeftBumper.whenPressed(command);
+
+    opRightBumper = new JoystickButton(opPad, 6);
+    //opRightBumper.whenPressed(command);
   }
+
+
 
 
 

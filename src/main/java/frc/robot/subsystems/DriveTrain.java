@@ -12,16 +12,13 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
-import com.revrobotics.EncoderType;
 import com.revrobotics.CANPIDController.AccelStrategy;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.commands.GamepadDrive;
 
 public class DriveTrain extends SubsystemBase {
   /**
@@ -44,8 +41,8 @@ public class DriveTrain extends SubsystemBase {
     frontRight = new CANSparkMax(3, MotorType.kBrushless);
     backRight = new CANSparkMax(4, MotorType.kBrushless);
 
-    //leftEncoder = frontLeft.getEncoder();
-    //rightEncoder = frontRight.getEncoder();
+    leftEncoder = frontLeft.getEncoder();
+    rightEncoder = frontRight.getEncoder();
 
     leftEncoder = frontLeft.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192);
     rightEncoder = frontRight.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192);
@@ -62,7 +59,7 @@ public class DriveTrain extends SubsystemBase {
     leftController.setFeedbackDevice(leftEncoder);
     rightController.setFeedbackDevice(rightEncoder);
 
-    /*//sets PID gains for position control for the left pid controller
+    //sets PID gains for position control for the left pid controller
     leftController.setP(Constants.dPos_kP, Constants.dPos_Slot);
     leftController.setI(Constants.dPos_kI, Constants.dPos_Slot);
     leftController.setD(Constants.dPos_kD, Constants.dPos_Slot);
@@ -105,16 +102,13 @@ public class DriveTrain extends SubsystemBase {
  
      leftController.setSmartMotionAllowedClosedLoopError(Constants.dSmart_Motion_Allowed_Error, Constants.dSmart_Motion_Slot);
      rightController.setSmartMotionAllowedClosedLoopError(Constants.dSmart_Motion_Allowed_Error, Constants.dSmart_Motion_Slot);
-    */
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY(), RobotContainer.gamepad.getRightAnalogY());
-
-    System.out.println(leftEncoder.getPosition());
-  }
+    drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
+    }
 
   public void drivePercentOutput(double left, double right) {
     frontLeft.set(left); 
@@ -151,8 +145,12 @@ public class DriveTrain extends SubsystemBase {
     return backRight.getOutputCurrent();
   }
   
-  public void getLeftEncoderCount() {
-    //return leftEncoder.get();
+  public double getLeftEncoderCount() {
+    return leftEncoder.getPosition();
+  }
+
+  public double getRightEncoderCount() {
+    return rightEncoder.getPosition();
   }
 
   public double getLeftMotorOutput() {
@@ -166,6 +164,22 @@ public class DriveTrain extends SubsystemBase {
   public void reset() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
+  }
+
+  public CANSparkMax getFrontLeft() {
+    return frontLeft;
+  }
+
+  public CANSparkMax getFrontRight() {
+    return frontRight;
+  }
+
+  public CANSparkMax getBackLeft() {
+    return backLeft;
+  }
+
+  public CANSparkMax getBackRight() {
+    return backRight;
   }
 }
 

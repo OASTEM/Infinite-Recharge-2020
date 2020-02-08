@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -17,11 +16,9 @@ public class BringClimberUp extends CommandBase {
   /**
    * Creates a new RunFrontLeg.
    */
-  private double goal;
-  public BringClimberUp(double goal) {
+  public BringClimberUp() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.climber);
-    this.goal = goal;
   }
 
   // Called when the command is initially scheduled.

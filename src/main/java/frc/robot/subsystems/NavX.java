@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class NavX extends SubsystemBase {
@@ -26,7 +25,6 @@ public class NavX extends SubsystemBase {
 
   @Override
   public void periodic() {
-    System.out.println(Math.round(getAccelY()*100));
     // This method will be called once per scheduler run
   }
 
