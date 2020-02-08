@@ -45,4 +45,15 @@ public class NavX extends SubsystemBase {
   public double getGyroY() {
     return navX.getRawGyroY();
   }
+
+  public double getAngle() {
+    return navX.getAngle();
+  }
+
+  public void reset() {
+    navX.reset();
+  }
 }
+
+
+

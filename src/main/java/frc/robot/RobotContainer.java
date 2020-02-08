@@ -24,7 +24,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final BringClimberUp m_autoCommand = new BringClimberUp(320);
   public static final LogitechGamingPad gamepad = new LogitechGamingPad(0);
-  //public static final DriveTrain drive = new DriveTrain();
+  public static final DriveTrain drive = new DriveTrain();
   public static final Jevois jevois = new Jevois();
   public static final Climber climber = new Climber();
   public static final ControlPanelMan cp_Man = new ControlPanelMan();
