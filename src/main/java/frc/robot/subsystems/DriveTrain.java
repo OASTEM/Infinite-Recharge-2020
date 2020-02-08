@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.AlternateEncoderType;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -38,22 +39,28 @@ public class DriveTrain extends SubsystemBase {
   CANEncoder rightEncoder;
 
   public DriveTrain() {
-    frontLeft = new CANSparkMax(1, MotorType.kBrushless);
+    frontLeft = new CANSparkMax(1, MotorType. kBrushless);
     backLeft = new CANSparkMax(2, MotorType.kBrushless);
     frontRight = new CANSparkMax(3, MotorType.kBrushless);
     backRight = new CANSparkMax(4, MotorType.kBrushless);
 
-    leftEncoder = frontLeft.getEncoder();
-    rightEncoder = frontRight.getEncoder();
+    //leftEncoder = frontLeft.getEncoder();
+    //rightEncoder = frontRight.getEncoder();
 
-    //leftEncoder = frontLeft.getEncoder(EncoderType.kHallSensor, 42);
-    //rightEncoder = frontRight.getEncoder(EncoderType.kHallSensor, 42);
+    leftEncoder = frontLeft.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192);
+    rightEncoder = frontRight.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192);
 
     backLeft.follow(frontLeft);
     backRight.follow(frontRight);
     
     frontLeft.setInverted(false);
     frontRight.setInverted(false);
+
+    leftController = frontLeft.getPIDController();
+    rightController = frontRight.getPIDController();
+
+    leftController.setFeedbackDevice(leftEncoder);
+    rightController.setFeedbackDevice(rightEncoder);
 
     /*//sets PID gains for position control for the left pid controller
     leftController.setP(Constants.dPos_kP, Constants.dPos_Slot);
@@ -105,6 +112,8 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY(), RobotContainer.gamepad.getRightAnalogY());
+
+    System.out.println(leftEncoder.getPosition());
   }
 
   public void drivePercentOutput(double left, double right) {
