@@ -26,6 +26,7 @@ public class RobotContainer {
   public static final LogitechGamingPad drivePad = new LogitechGamingPad(0);
   public static final LogitechGamingPad opPad = new LogitechGamingPad(1);
   public static final DriveTrain drive = new DriveTrain();
+  //public static final DriveTrainV2 drive = new DriveTrainV2();
   public static final Jevois jevois = new Jevois();
   public static final Climber climber = new Climber();
   public static final ControlPanelMan cp_Man = new ControlPanelMan();
@@ -74,7 +75,7 @@ public class RobotContainer {
     driveB.whenPressed(new BringClimberUp());
 
     driveX = new JoystickButton(drivePad, 3);
-    driveX.whenPressed(new DriveDistance(0));
+    driveX.whenPressed(new DriveDistance(50));
 
     driveY = new JoystickButton(drivePad, 4);
     //driveY.whenPressed();

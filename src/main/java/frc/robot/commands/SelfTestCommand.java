@@ -60,10 +60,10 @@ public class SelfTestCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    frontLeftCurrent.setDouble(selfTestObj.getOutputCurrent(RobotContainer.drive.getFrontLeft()));
-    frontRightCurrent.setDouble(selfTestObj.getOutputCurrent(RobotContainer.drive.getFrontRight()));
-    backLeftCurrent.setDouble(selfTestObj.getOutputCurrent(RobotContainer.drive.getBackLeft()));
-    backRightCurrent.setDouble(selfTestObj.getOutputCurrent(RobotContainer.drive.getBackRight()));
+    //frontLeftCurrent.setDouble(selfTestObj.getOutputCurrent(RobotContainer.drive.getFrontLeft()));
+    //frontRightCurrent.setDouble(selfTestObj.getOutputCurrent(RobotContainer.drive.getFrontRight()));
+    //backLeftCurrent.setDouble(selfTestObj.getOutputCurrent(RobotContainer.drive.getBackLeft()));
+    //backRightCurrent.setDouble(selfTestObj.getOutputCurrent(RobotContainer.drive.getBackRight()));
   }
 
   // Called once the command ends or is interrupted.

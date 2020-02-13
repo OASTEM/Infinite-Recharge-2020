@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.GamepadDrive;
 
 public class DriveTrain extends SubsystemBase {
   /**
@@ -36,28 +37,33 @@ public class DriveTrain extends SubsystemBase {
   CANEncoder rightEncoder;
 
   public DriveTrain() {
-    frontLeft = new CANSparkMax(1, MotorType. kBrushless);
-    backLeft = new CANSparkMax(2, MotorType.kBrushless);
+    frontLeft = new CANSparkMax(2, MotorType. kBrushless);
+    backLeft = new CANSparkMax(1, MotorType.kBrushless);
     frontRight = new CANSparkMax(3, MotorType.kBrushless);
     backRight = new CANSparkMax(4, MotorType.kBrushless);
 
-    leftEncoder = frontLeft.getEncoder();
-    rightEncoder = frontRight.getEncoder();
+    //leftEncoder =  backLeft.getEncoder();
+    //rightEncoder = backRight.getEncoder();
 
-    leftEncoder = frontLeft.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192);
-    rightEncoder = frontRight.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192);
+    leftEncoder = backLeft.getAlternateEncoder(AlternateEncoderType.kQuadrature, 4096);
+    rightEncoder = backRight.getAlternateEncoder(AlternateEncoderType.kQuadrature, 4096);
 
-    backLeft.follow(frontLeft);
-    backRight.follow(frontRight);
+    frontLeft.follow(backLeft, false);
+    frontRight.follow(backRight, false);
     
-    frontLeft.setInverted(false);
-    frontRight.setInverted(false);
+    backLeft.setInverted(false);
+    backRight.setInverted(false);
 
-    leftController = frontLeft.getPIDController();
-    rightController = frontRight.getPIDController();
+    leftController = backLeft.getPIDController();
+    rightController = backRight.getPIDController();
 
     leftController.setFeedbackDevice(leftEncoder);
     rightController.setFeedbackDevice(rightEncoder);
+
+    reset();
+
+    //backLeft.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
+    //backRight.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
 
     //sets PID gains for position control for the left pid controller
     leftController.setP(Constants.dPos_kP, Constants.dPos_Slot);
@@ -71,13 +77,10 @@ public class DriveTrain extends SubsystemBase {
     rightController.setD(Constants.dPos_kD, Constants.dPos_Slot);
     rightController.setFF(Constants.dPos_kF, Constants.dPos_Slot);
 
-    frontLeft.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
-    frontRight.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
-
     frontLeft.setClosedLoopRampRate(Constants.dClosedLoop_Ramp);
     frontRight.setClosedLoopRampRate(Constants.dClosedLoop_Ramp);
 
-     //configure necessary smart motion parameters for the left PID controllers
+     /*//configure necessary smart motion parameters for the left PID controllers
      leftController.setSmartMotionAccelStrategy(AccelStrategy.kTrapezoidal, Constants.dSmart_Motion_Slot);
      leftController.setSmartMotionMaxAccel(Constants.dSmart_Motion_Min_Accel, Constants.dSmart_Motion_Slot);
      leftController.setSmartMotionMinOutputVelocity(Constants.dSmart_Motion_Min_Velocity, Constants.dSmart_Motion_Slot);
@@ -102,27 +105,36 @@ public class DriveTrain extends SubsystemBase {
  
      leftController.setSmartMotionAllowedClosedLoopError(Constants.dSmart_Motion_Allowed_Error, Constants.dSmart_Motion_Slot);
      rightController.setSmartMotionAllowedClosedLoopError(Constants.dSmart_Motion_Allowed_Error, Constants.dSmart_Motion_Slot);
-  }
+    */
+
+    setDefaultCommand(new GamepadDrive());
+    }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
-    }
+    //drivePercentOutput(-RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
+    //drivePercentOutput(0.3, 0.3);
+    //System.out.println(backLeft.getOutputCurrent());
+    //System.out.println(frontLeft.getOutputCurrent()); 
+    System.out.println("Left Enc: " + leftEncoder.getPosition());
+    System.out.println("Right Enc: " + rightEncoder.getPosition()); 
+    System.out.println(leftEncoder.getCountsPerRevolution());
+  }
 
   public void drivePercentOutput(double left, double right) {
-    frontLeft.set(left); 
-    frontRight.set(right);
+    backLeft.set(left); 
+    backRight.set(right);
   }
 
   public void drivePosition(double goal) {
     leftController.setReference(goal, ControlType.kPosition, Constants.dPos_Slot);
-    rightController.setReference(goal, ControlType.kPosition, Constants.dPos_Slot);
+    rightController.setReference(-goal, ControlType.kPosition, Constants.dPos_Slot);
   }
 
   public void driveSmartMotion(double goal) {
     leftController.setReference(goal, ControlType.kSmartMotion, Constants.dSmart_Motion_Slot);
-    rightController.setReference(goal, ControlType.kSmartMotion, Constants.dSmart_Motion_Slot);
+    rightController.setReference(-goal, ControlType.kSmartMotion, Constants.dSmart_Motion_Slot);
   }
   
   public void stop() {
@@ -164,6 +176,10 @@ public class DriveTrain extends SubsystemBase {
   public void reset() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
+  }
+
+  public double getPos() {
+    return leftEncoder.getPosition();
   }
 
   public CANSparkMax getFrontLeft() {

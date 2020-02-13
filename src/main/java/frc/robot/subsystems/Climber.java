@@ -32,7 +32,7 @@ public class Climber extends SubsystemBase {
   CANEncoder backEncoder;
 
   public Climber() {
-    frontMotor = new CANSparkMax(4, MotorType.kBrushless);
+    frontMotor = new CANSparkMax(5, MotorType.kBrushless);
     backMotor = new CANSparkMax(6, MotorType.kBrushless);
 
     frontController = frontMotor.getPIDController();
