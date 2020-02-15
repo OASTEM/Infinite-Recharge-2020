@@ -39,19 +39,19 @@ public class DriveTrain extends SubsystemBase {
   CANEncoder rightEncoder;
 
   public DriveTrain() {
-    frontLeft = new CANSparkMax(1, MotorType. kBrushless);
-    backLeft = new CANSparkMax(2, MotorType.kBrushless);
+    frontLeft = new CANSparkMax(2, MotorType. kBrushless);
+    backLeft = new CANSparkMax(1, MotorType.kBrushless);
     frontRight = new CANSparkMax(3, MotorType.kBrushless);
     backRight = new CANSparkMax(4, MotorType.kBrushless);
 
     //leftEncoder = frontLeft.getEncoder();
     //rightEncoder = frontRight.getEncoder();
 
-    leftEncoder = frontLeft.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192);
-    rightEncoder = frontRight.getAlternateEncoder(AlternateEncoderType.kQuadrature, 8192);
+    leftEncoder = backLeft.getAlternateEncoder(AlternateEncoderType.kQuadrature, 4096);
+    rightEncoder = backRight.getAlternateEncoder(AlternateEncoderType.kQuadrature, 4096);
 
-    backLeft.follow(frontLeft);
-    backRight.follow(frontRight);
+    frontLeft.follow(backLeft);
+    frontRight.follow(backRight);
     
     frontLeft.setInverted(false);
     frontRight.setInverted(false);
@@ -106,6 +106,8 @@ public class DriveTrain extends SubsystemBase {
      leftController.setSmartMotionAllowedClosedLoopError(Constants.dSmart_Motion_Allowed_Error, Constants.dSmart_Motion_Slot);
      rightController.setSmartMotionAllowedClosedLoopError(Constants.dSmart_Motion_Allowed_Error, Constants.dSmart_Motion_Slot);
     */
+
+    //setDefaultCommand(new GamepadDrive());
   }
 
   @Override
@@ -117,8 +119,16 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void drivePercentOutput(double left, double right) {
-    frontLeft.set(left); 
-    frontRight.set(right);
+    if(Math.abs(left) >= 0.1) {
+      backLeft.set(left);
+    }
+    else {
+      backLeft.set(0);
+    }
+
+    if(Math.abs(right) >= 0.1) {
+      backRight.set(-right);
+    }
   }
 
   public void drivePosition(double goal) {
@@ -151,8 +161,12 @@ public class DriveTrain extends SubsystemBase {
     return backRight.getOutputCurrent();
   }
   
-  public void getLeftEncoderCount() {
-    //return leftEncoder.get();
+  public double getLeftEncoderCount() {
+    return leftEncoder.getPosition();
+  }
+
+  public double getRightEncoderCount() {
+    return rightEncoder.getPosition();
   }
 
   public double getLeftMotorOutput() {

@@ -17,6 +17,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.GamepadClimb;
 
 public class Climber extends SubsystemBase {
   /**
@@ -59,17 +60,13 @@ public class Climber extends SubsystemBase {
     
     leftMotor.setOpenLoopRampRate(0.5);
     rightMotor.setOpenLoopRampRate(0.5);
+
+    //setDefaultCommand(new GamepadClimb());
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    gamepadClimb(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
-    
-    System.out.println("Left Joystick: " + RobotContainer.drivePad.getLeftAnalogY());
-    System.out.println("Right Joystick: " + RobotContainer.drivePad.getRightAnalogY());
-    System.out.println("Left Encoder: " + getLeftPosition());
-    System.out.println("Right Encoder: " + getRightPosition());
   }
 
   public void gamepadClimb(double leftInput, double rightInput) {
@@ -83,7 +80,9 @@ public class Climber extends SubsystemBase {
     if(Math.abs(rightInput) >= 0.25) {
       runRightMotor(rightInput);
     }
+    else{
       runRightMotor(0);
+    }
   }
 
   public void testClimb(double leftInput, double rightInput) {
