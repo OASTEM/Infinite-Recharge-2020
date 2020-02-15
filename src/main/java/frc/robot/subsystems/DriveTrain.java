@@ -53,8 +53,8 @@ public class DriveTrain extends SubsystemBase {
     frontLeft.follow(backLeft);
     frontRight.follow(backRight);
     
-    frontLeft.setInverted(false);
-    frontRight.setInverted(false);
+    backLeft.setInverted(false);
+    backRight.setInverted(false);
 
     leftController = frontLeft.getPIDController();
     rightController = frontRight.getPIDController();
