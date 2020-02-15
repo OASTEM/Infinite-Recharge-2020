@@ -26,14 +26,14 @@ public class BringClimberUp extends CommandBase {
   public void initialize() {
     RobotContainer.climber.reset();
     Timer.delay(0.1);
-    RobotContainer.climber.set(1.0);
+    //RobotContainer.climber.set(1.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     System.out.println("Bring Climber up - execute()");
-    SmartDashboard.putNumber("Position", RobotContainer.climber.getFrontPosition());
+    SmartDashboard.putNumber("Position", RobotContainer.climber.getLeftPosition());
   }
 
   // Called once the command ends or is interrupted.
@@ -45,7 +45,7 @@ public class BringClimberUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(RobotContainer.climber.getFrontPosition() >= 320) {
+    if(RobotContainer.climber.getLeftPosition() >= 320) {
       return true;
     }
     return false;

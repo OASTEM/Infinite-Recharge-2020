@@ -24,6 +24,7 @@ public class SelfTestCommand extends CommandBase {
   private NetworkTableEntry frontRightCurrent;
   private NetworkTableEntry backLeftCurrent;
   private NetworkTableEntry backRightCurrent;
+  private NetworkTableEntry climbEncoder;
 
   private SelfTest selfTestObj;
 
@@ -47,7 +48,8 @@ public class SelfTestCommand extends CommandBase {
         frontRightCurrent = selfTest.add("FrontRight Current", 0.0).getEntry();
         backLeftCurrent = selfTest.add("BackLeft Current", 0.0).getEntry();
         backRightCurrent = selfTest.add("BackRight Current", 0.0).getEntry();
-      
+        climbEncoder = selfTest.add("Climb Encoder: ", 0.0).getEntry();
+
         selfTestObj = new SelfTest();
       }
     }
@@ -64,6 +66,7 @@ public class SelfTestCommand extends CommandBase {
     //frontRightCurrent.setDouble(selfTestObj.getOutputCurrent(RobotContainer.drive.getFrontRight()));
     //backLeftCurrent.setDouble(selfTestObj.getOutputCurrent(RobotContainer.drive.getBackLeft()));
     //backRightCurrent.setDouble(selfTestObj.getOutputCurrent(RobotContainer.drive.getBackRight()));
+    climbEncoder.setDouble(selfTestObj.getEncoderCount());
   }
 
   // Called once the command ends or is interrupted.

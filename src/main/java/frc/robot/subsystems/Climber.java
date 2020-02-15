@@ -16,99 +16,126 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class Climber extends SubsystemBase {
   /**
    * Creates a new Climber.
    */
 
-  CANSparkMax frontMotor;
-  CANSparkMax backMotor;
+  CANSparkMax leftMotor;
+  CANSparkMax rightMotor;
 
-  CANPIDController frontController;
-  CANPIDController backController;
+  CANPIDController leftController;
+  CANPIDController rightController;
 
-  CANEncoder frontEncoder;
-  CANEncoder backEncoder;
+  CANEncoder leftEncoder;
+  CANEncoder rightEncoder;
 
   public Climber() {
-    frontMotor = new CANSparkMax(5, MotorType.kBrushless);
-    backMotor = new CANSparkMax(6, MotorType.kBrushless);
+    leftMotor = new CANSparkMax(5, MotorType.kBrushless);
+    rightMotor = new CANSparkMax(6, MotorType.kBrushless);
 
-    frontController = frontMotor.getPIDController();
-    backController = backMotor.getPIDController();
+    leftController = leftMotor.getPIDController();
+    rightController = rightMotor.getPIDController();
 
-    frontEncoder = frontMotor.getEncoder();
-    frontEncoder = frontMotor.getEncoder(EncoderType.kHallSensor, 42);
+    leftEncoder = leftMotor.getEncoder();
+    leftEncoder = leftMotor.getEncoder(EncoderType.kHallSensor, 42);
 
-    backEncoder = backMotor.getEncoder();
-    backEncoder = backMotor.getEncoder(EncoderType.kHallSensor, 42);
+    rightEncoder = rightMotor.getEncoder();
+    rightEncoder = rightMotor.getEncoder(EncoderType.kHallSensor, 42);
 
-    frontController.setFeedbackDevice(frontEncoder);
-    backController.setFeedbackDevice(backEncoder);
+    leftController.setFeedbackDevice(leftEncoder);
+    rightController.setFeedbackDevice(rightEncoder);
 
-    frontController.setP(Constants.cPos_kP, Constants.cPos_Slot); 
-    frontController.setI(Constants.cPos_kP, Constants.cPos_Slot); 
-    frontController.setD(Constants.cPos_kP, Constants.cPos_Slot); 
-    frontController .setFF(Constants.cPos_kP, Constants.cPos_Slot);
-    backController.setP(Constants.cPos_kP, Constants.cPos_Slot); 
-    backController.setI(Constants.cPos_kP, Constants.cPos_Slot); 
-    backController.setD(Constants.cPos_kP, Constants.cPos_Slot); 
-    backController .setFF(Constants.cPos_kP, Constants.cPos_Slot);
+    leftController.setP(Constants.cPos_kP, Constants.cPos_Slot); 
+    leftController.setI(Constants.cPos_kP, Constants.cPos_Slot); 
+    leftController.setD(Constants.cPos_kP, Constants.cPos_Slot); 
+    leftController .setFF(Constants.cPos_kP, Constants.cPos_Slot);
+    rightController.setP(Constants.cPos_kP, Constants.cPos_Slot); 
+    rightController.setI(Constants.cPos_kP, Constants.cPos_Slot); 
+    rightController.setD(Constants.cPos_kP, Constants.cPos_Slot); 
+    rightController .setFF(Constants.cPos_kP, Constants.cPos_Slot);
     
-    frontMotor.setOpenLoopRampRate(0.5);
-    backMotor.setOpenLoopRampRate(0.5);
-  
+    leftMotor.setOpenLoopRampRate(0.5);
+    rightMotor.setOpenLoopRampRate(0.5);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    gamepadClimb(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
+    
+    System.out.println("Left Joystick: " + RobotContainer.drivePad.getLeftAnalogY());
+    System.out.println("Right Joystick: " + RobotContainer.drivePad.getRightAnalogY());
+    System.out.println("Left Encoder: " + getLeftPosition());
+    System.out.println("Right Encoder: " + getRightPosition());
   }
 
-  public void set(double power) {
-    runFrontMotor(power);
-    runBackMotor(power);
+  public void gamepadClimb(double leftInput, double rightInput) {
+    if(Math.abs(leftInput) >= 0.25) {
+      runLeftMotor(-leftInput);
+    }
+    else {
+      runLeftMotor(0);
+    }
+
+    if(Math.abs(rightInput) >= 0.25) {
+      runRightMotor(rightInput);
+    }
+      runRightMotor(0);
   }
 
-  public void runFrontMotor(double power)
+  public void testClimb(double leftInput, double rightInput) {
+    if(leftInput > 0) {
+      runLeftMotor(-leftInput);
+    }
+    else runLeftMotor(0);
+
+    if(rightInput > 0) {
+      runRightMotor(rightInput);
+    }
+    else runRightMotor(0);
+  }
+
+  public void runLeftMotor(double power)
   {
-    frontMotor.set(power);
+    leftMotor.set(power);
   }
 
-  public void runBackMotor(double power)
+  public void runRightMotor(double power)
   {
-    backMotor.set(power);
+    rightMotor.set(power);
   }
 
   public void setPosition(double pos) {
-    frontController.setReference(pos, ControlType.kPosition, Constants.cPos_Slot);
-    backController.setReference(pos, ControlType.kPosition, Constants.cPos_Slot);
+    leftController.setReference(pos, ControlType.kPosition, Constants.cPos_Slot);
+    rightController.setReference(pos, ControlType.kPosition, Constants.cPos_Slot);
   }
 
-  public void setFrontPosition(double pos) {
-    frontController.setReference(pos, ControlType.kPosition, Constants.cPos_Slot);
+  public void setLeftPosition(double pos) {
+    leftController.setReference(pos, ControlType.kPosition, Constants.cPos_Slot);
   }
 
-  public void setBackPosition(double pos) {
-    backController.setReference(pos, ControlType.kPosition, Constants.cPos_Slot);
+  public void setRightPosition(double pos) {
+    rightController.setReference(pos, ControlType.kPosition, Constants.cPos_Slot);
   }
 
-  public double getFrontPosition() {
-    return frontEncoder.getPosition();
+  public double getLeftPosition() {
+    return leftEncoder.getPosition();
   }
 
-  public double getBackPosition() {
-    return backEncoder.getPosition();
+  public double getRightPosition() {
+    return rightEncoder.getPosition();
   }
 
   public void reset() {
-    frontEncoder.setPosition(0);
-    backEncoder.setPosition(0);
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
   }
 
   public void stop() {
-    runFrontMotor(0);
-    runBackMotor(0);
+    runLeftMotor(0);
+    runRightMotor(0);
   }
 }

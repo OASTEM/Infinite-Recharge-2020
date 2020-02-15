@@ -44,6 +44,6 @@ public class BringClimberDown extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.getFrontPosition() <= -85 || climber.getBackPosition() <= -85;
+    return climber.getLeftPosition() <= -85 || climber.getRightPosition() <= -85;
   }
 }

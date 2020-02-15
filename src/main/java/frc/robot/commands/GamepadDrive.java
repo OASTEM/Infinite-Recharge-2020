@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.LogitechGamingPad;
 import frc.robot.RobotContainer;
 
 public class GamepadDrive extends CommandBase {
@@ -18,10 +19,12 @@ public class GamepadDrive extends CommandBase {
 
   Timer timer;
   double time;
+  LogitechGamingPad drivePad;
 
   public GamepadDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.drive);
+    drivePad = RobotContainer.drivePad;
   }
 
   // Called when the command is initially scheduled.

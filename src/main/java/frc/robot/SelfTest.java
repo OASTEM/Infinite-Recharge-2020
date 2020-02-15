@@ -26,4 +26,8 @@ public class SelfTest {
     public double getOutputCurrent(CANSparkMax sparkMax) {
         return sparkMax.getOutputCurrent();
     }
+
+    public double getEncoderCount() {
+        return RobotContainer.climber.getLeftPosition();
+    }
 }
