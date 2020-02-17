@@ -92,7 +92,7 @@ public class RobotContainer {
     driveStart.whenPressed(new SelfTestCommand());
   
     opA = new JoystickButton(opPad, 1);
-    //opA.whenPressed(command);
+    //opA.whenPressed(new GoToGoalColor("R"));
 
     opB = new JoystickButton(opPad, 2);
     //opB.whenPressed(command);

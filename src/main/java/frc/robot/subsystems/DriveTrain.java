@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.AlternateEncoderType;
 import com.revrobotics.CANEncoder;
+
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
@@ -113,21 +114,24 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    //drivePercentOutput(RobotContainer.gamepad.getLeftAnalogY(), RobotContainer.gamepad.getRightAnalogY());
-
-    //System.out.println(leftEncoder.getPosition());
+    drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
+    System.out.println("Left: " + leftEncoder.getPosition());
+    System.out.println("Right: " + rightEncoder.getPosition());
   }
 
   public void drivePercentOutput(double left, double right) {
     if(Math.abs(left) >= 0.1) {
-      backLeft.set(left);
+      backLeft.set(-left);
     }
     else {
       backLeft.set(0);
     }
 
     if(Math.abs(right) >= 0.1) {
-      backRight.set(-right);
+      backRight.set(right);
+    }
+    else {
+      backRight.set(0.0);
     }
   }
 

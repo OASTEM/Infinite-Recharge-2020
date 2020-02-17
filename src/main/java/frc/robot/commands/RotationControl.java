@@ -7,44 +7,40 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.ControlPanelMan;
 
-public class GamepadClimb extends CommandBase {
+public class RotationControl extends CommandBase {
   /**
-   * Creates a new GamepadClimb.
-   * 
+   * Creates a new RotationControl.
    */
+  ControlPanelMan cpMan;
+  Timer timer;
 
-  Climber climber;
-  public GamepadClimb() {
+  public RotationControl() {
     // Use addRequirements() here to declare subsystem dependencies.
-    climber = RobotContainer.climber;
-    addRequirements(climber);
+    cpMan = RobotContainer.cp_Man;
+    timer = new Timer();
+    addRequirements(cpMan);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.reset();
+    cpMan.run(1.0);
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.gamepadClimb(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
-    
-    System.out.println("Left Joystick: " + RobotContainer.drivePad.getLeftAnalogY());
-    System.out.println("Right Joystick: " + RobotContainer.drivePad.getRightAnalogY());
-    System.out.println("Left Encoder: " + climber.getLeftPosition());
-    System.out.println("Right Encoder: " + climber.getRightPosition());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.stop();
   }
 
   // Returns true when the command should end.

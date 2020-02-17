@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.I2C;
@@ -23,7 +24,7 @@ public class ControlPanelMan extends SubsystemBase {
    * Creates a new ControlPanelMan.
    */
 
-  private VictorSPX cpMan = new VictorSPX(10);
+  private TalonSRX cpMan = new TalonSRX(6);
   // need to change ID of VictorSPX
 
   private I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -66,6 +67,8 @@ public class ControlPanelMan extends SubsystemBase {
     } else {
       colorString = "Unknown";
     }
+
+    //run(1.0);
   }
   
   public void run(double power) {

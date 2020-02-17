@@ -25,7 +25,7 @@ public class GoToGoalColor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //RobotContainer.cp_Man.run(0.2);
+    RobotContainer.cp_Man.run(0.09);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,7 +39,6 @@ public class GoToGoalColor extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.cp_Man.run(0.0);
-    System.out.println("Finished");
   }
 
   // Returns true when the command should end.
