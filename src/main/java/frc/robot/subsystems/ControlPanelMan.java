@@ -24,7 +24,7 @@ public class ControlPanelMan extends SubsystemBase {
    * Creates a new ControlPanelMan.
    */
 
-  private TalonSRX cpMan = new TalonSRX(6);
+  private VictorSPX cpMan = new VictorSPX(13);
   // need to change ID of VictorSPX
 
   private I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -68,7 +68,7 @@ public class ControlPanelMan extends SubsystemBase {
       colorString = "Unknown";
     }
 
-    //run(1.0);
+    //run(0.1);
   }
   
   public void run(double power) {

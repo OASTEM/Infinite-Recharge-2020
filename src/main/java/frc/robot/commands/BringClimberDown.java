@@ -26,8 +26,9 @@ public class BringClimberDown extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.reset();
-    climber.setPosition(-100);
+    //climber.reset();
+    //climber.setPosition(-100);
+    climber.gamepadClimb(0.7, 0.7);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,6 +45,9 @@ public class BringClimberDown extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.getLeftPosition() <= -85 || climber.getRightPosition() <= -85;
+    /*if (climber.getLeftPosition() <= -85 || climber.getRightPosition() <= -85) {
+
+    }*/
+    return false;
   }
 }
