@@ -48,19 +48,19 @@ public class DriveTrain extends SubsystemBase {
     //leftEncoder = frontLeft.getEncoder();
     //rightEncoder = frontRight.getEncoder();
 
-    backLeft.setOpenLoopRampRate(0);
-    backRight.setOpenLoopRampRate(0);
+    backLeft.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
+    backRight.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
 
     leftEncoder = backLeft.getAlternateEncoder(AlternateEncoderType.kQuadrature, 4096);
     rightEncoder = backRight.getAlternateEncoder(AlternateEncoderType.kQuadrature, 4096);
 
-    frontLeft.follow(backLeft);
-    frontRight.follow(backRight);
+    frontLeft.follow(backLeft, false);
+    frontRight.follow(backRight, false);
     
-    backLeft.setInverted(false);
-    backRight.setInverted(false);
+    backLeft.setInverted(true);
+    backRight.setInverted(true);
 
-    leftController = frontLeft.getPIDController();
+    leftController = backLeft.getPIDController();
     rightController = backRight.getPIDController();
 
     leftController.setFeedbackDevice(leftEncoder);
@@ -68,7 +68,7 @@ public class DriveTrain extends SubsystemBase {
 
     reset();
 
-    /*//sets PID gains for position control for the left pid controller
+    //sets PID gains for position control for the left pid controller
     leftController.setP(Constants.dPos_kP, Constants.dPos_Slot);
     leftController.setI(Constants.dPos_kI, Constants.dPos_Slot);
     leftController.setD(Constants.dPos_kD, Constants.dPos_Slot);
@@ -80,11 +80,12 @@ public class DriveTrain extends SubsystemBase {
     rightController.setD(Constants.dPos_kD, Constants.dPos_Slot);
     rightController.setFF(Constants.dPos_kF, Constants.dPos_Slot);
 
-    //frontLeft.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
-    backRight.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
-
-    //frontLeft.setClosedLoopRampRate(Constants.dClosedLoop_Ramp);
+    backLeft.setClosedLoopRampRate(Constants.dClosedLoop_Ramp);
     backRight.setClosedLoopRampRate(Constants.dClosedLoop_Ramp);
+    
+    leftController.setOutputRange(Constants.dMinOutput, Constants.dMaxOutput, Constants.dPos_Slot);
+    rightController.setOutputRange(Constants.dMinOutput, Constants.dMaxOutput, Constants.dPos_Slot);
+
     /*
      //configure necessary smart motion parameters for the left PID controllers
      leftController.setSmartMotionAccelStrategy(AccelStrategy.kTrapezoidal, Constants.dSmart_Motion_Slot);
@@ -119,22 +120,20 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY()*.5, RobotContainer.drivePad.getRightAnalogY()*.5);
-    //System.out.println("Left: " + leftEncoder.getPosition());
-    //System.out.println("Right: " + rightEncoder.getPosition());
-    //backLeft.set(0.3);
+    System.out.println("Left: " + leftEncoder.getPosition());
+    System.out.println("Right: " + rightEncoder.getPosition());
   }
 
   public void drivePercentOutput(double left, double right) {
     if(Math.abs(left) >= 0.1) {
-      backLeft.set(-left);
+      backLeft.set(left);
     }
     else {
       backLeft.set(0);
     }
 
     if(Math.abs(right) >= 0.1) {
-      backRight.set(right);
+      backRight.set(-right);
     }
     else {
       backRight.set(0.0);
@@ -142,7 +141,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void drivePosition(double goal) {
-    leftController.setReference(goal, ControlType.kPosition, Constants.dPos_Slot);
+    leftController.setReference(-goal/2, ControlType.kPosition, Constants.dPos_Slot);
     rightController.setReference(goal, ControlType.kPosition, Constants.dPos_Slot);
   }
 

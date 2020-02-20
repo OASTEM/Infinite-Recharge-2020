@@ -33,12 +33,12 @@ public class GamepadClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.gamepadClimb(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
+    climber.gamepadClimb(RobotContainer.opPad.getLeftAnalogY(), RobotContainer.opPad.getRightAnalogY());
     
-    System.out.println("Left Joystick: " + RobotContainer.drivePad.getLeftAnalogY());
-    System.out.println("Right Joystick: " + RobotContainer.drivePad.getRightAnalogY());
-    System.out.println("Left Encoder: " + climber.getLeftPosition());
-    System.out.println("Right Encoder: " + climber.getRightPosition());
+    //System.out.println("Left Joystick: " + RobotContainer.drivePad.getLeftAnalogY());
+    //System.out.println("Right Joystick: " + RobotContainer.drivePad.getRightAnalogY());
+    //System.out.println("Left Encoder: " + climber.getLeftPosition());
+    //System.out.println("Right Encoder: " + climber.getRightPosition());
   }
 
   // Called once the command ends or is interrupted.

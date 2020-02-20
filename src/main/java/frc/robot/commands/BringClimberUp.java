@@ -26,7 +26,7 @@ public class BringClimberUp extends CommandBase {
   public void initialize() {
     //RobotContainer.climber.reset();
     //Timer.delay(0.1);
-    RobotContainer.climber.gamepadClimb(-0.7, -0.7);
+    RobotContainer.climber.gamepadClimb(-1.0, -1.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

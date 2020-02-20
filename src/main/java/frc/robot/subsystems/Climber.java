@@ -61,13 +61,23 @@ public class Climber extends SubsystemBase {
     leftMotor.setOpenLoopRampRate(0.5);
     rightMotor.setOpenLoopRampRate(0.5);
 
-    //setDefaultCommand(new GamepadClimb());
+    reset();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    //gamepadClimb(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
+    /*if(leftEncoder.getPosition() > 50) 
+      if(leftMotor.get() < 0) {
+      runLeftMotor(0.0);
+    }
+    
+    if(rightEncoder.getPosition() > 50 && rightMotor.get() > 0) {
+      runRightMotor(0.0);
+    }
+
+    System.out.println("Encoder Position: " + leftEncoder.getPosition() + " Left Power: " + leftMotor.get());*/
+    
   }
 
   public void gamepadClimb(double leftInput, double rightInput) {

@@ -59,6 +59,9 @@ public class RobotContainer {
     configureButtonBindings();
 
     jevois.initializeSerialPort();
+
+    drive.setDefaultCommand(new GamepadDrive());
+    climber.setDefaultCommand(new GamepadClimb());
   }
 
   /**
@@ -72,18 +75,18 @@ public class RobotContainer {
     //driveA.whenPressed(new drivePadSlowModeDrive());
 
     driveB = new JoystickButton(drivePad, 2);
-    driveB.whenPressed(new BringClimberUp());
+    driveB.whenPressed(new DriveDistance(5));
+//19 inches per rot
 
     driveX = new JoystickButton(drivePad, 3);
-    driveX.whileHeld(new BringClimberDown());
+    //driveX.whilePressed(new BringClimberDown());
 
     driveY = new JoystickButton(drivePad, 4);
-    driveY.whileHeld(new BringClimberUp());
+    //driveY.whilePressed(new BringClimberUp());
     
     driveRightBumper = new JoystickButton(drivePad, 6);
     driveRightBumper.whenPressed(new GoToGoalColor("G"));
     //driveRightBumper.whenPressed(new GoToGoalColor(DriverStation.getInstance().getGameSpecificMessage().substring(0, 1)));
-    //driveRightBumper.whenPressed(new Shoot());
 
     driveLeftBumper = new JoystickButton(drivePad, 5);
     driveLeftBumper.whenPressed(new IntakeBalls());
@@ -98,10 +101,10 @@ public class RobotContainer {
     //opB.whenPressed(command);
 
     opX = new JoystickButton(opPad, 3);
-    //opX.whenPressed(command);
+    opX.whenHeld(new BringClimberDown());
 
     opY = new JoystickButton(opPad, 4);
-    //opY.whenPressed(command);
+    opY.whenHeld(new BringClimberUp());
 
     opLeftBumper = new JoystickButton(opPad, 5);
     //opLeftBumper.whenPressed(command);

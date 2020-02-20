@@ -28,7 +28,7 @@ public class BringClimberDown extends CommandBase {
   public void initialize() {
     //climber.reset();
     //climber.setPosition(-100);
-    climber.gamepadClimb(0.7, 0.7);
+    climber.gamepadClimb(1.0, 1.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
