@@ -120,8 +120,8 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    System.out.println("Left: " + leftEncoder.getPosition());
-    System.out.println("Right: " + rightEncoder.getPosition());
+    //System.out.println("Left: " + leftEncoder.getPosition());
+    //System.out.println("Right: " + rightEncoder.getPosition());
   }
 
   public void drivePercentOutput(double left, double right) {

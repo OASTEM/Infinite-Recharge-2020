@@ -24,18 +24,18 @@ public class ControlPanelMan extends SubsystemBase {
    * Creates a new ControlPanelMan.
    */
 
-  private VictorSPX cpMan = new VictorSPX(13);
-  // need to change ID of VictorSPX
+  private TalonSRX cpMan = new TalonSRX(6);
+  // VictorSPX 13
 
   private I2C.Port i2cPort = I2C.Port.kOnboard;
   private ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
-  private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-  private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-  private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-  private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  private final Color kBlueTarget = ColorMatch.makeColor(0.185, 0.420, 0.395); //.143,.427,.429
+  private final Color kGreenTarget = ColorMatch.makeColor(0.180, 0.620, 0.200); //.197,.561,.240
+  private final Color kRedTarget = ColorMatch.makeColor(0.627, 0.310, 0.063); //.561, .232, .114
+  private final Color kYellowTarget = ColorMatch.makeColor(0.386, 0.516, 0.088);//.361, .524, .113
 
   private final String[] colorList = {"Y", "R", "G", "B"};
 
@@ -54,8 +54,13 @@ public class ControlPanelMan extends SubsystemBase {
     // This method will be called once per scheduler run
 
     Color detectedColor = m_colorSensor.getColor();
+    m_colorMatcher.setConfidenceThreshold(.050);
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-
+    //m_colorMatcher.m
+    /*System.out.println("Red: " + detectedColor.red);
+    System.out.println("Green: " + detectedColor.green);
+    System.out.println("Blue: " + detectedColor.blue);
+    */
     if (match.color == kBlueTarget) {
       colorString = "B";
     } else if (match.color == kRedTarget) {
@@ -67,8 +72,7 @@ public class ControlPanelMan extends SubsystemBase {
     } else {
       colorString = "Unknown";
     }
-
-    //run(0.1);
+    //System.out.println(colorString);
   }
   
   public void run(double power) {
@@ -77,6 +81,7 @@ public class ControlPanelMan extends SubsystemBase {
 
   public String getColor() {
     int colorInt = 0;
+
     for (int i = 0; i < 4; i++) {
       if (colorString.equals(colorList[i])) {
         colorInt = i;

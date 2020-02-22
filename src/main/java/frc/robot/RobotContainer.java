@@ -85,12 +85,12 @@ public class RobotContainer {
     //driveY.whilePressed(new BringClimberUp());
     
     driveRightBumper = new JoystickButton(drivePad, 6);
-    driveRightBumper.whenPressed(new GoToGoalColor("G"));
+    driveRightBumper.whenPressed(new GoToGoalColorGroup("Y"));
     //driveRightBumper.whenPressed(new GoToGoalColor(DriverStation.getInstance().getGameSpecificMessage().substring(0, 1)));
 
     driveLeftBumper = new JoystickButton(drivePad, 5);
-    driveLeftBumper.whenPressed(new IntakeBalls());
-
+    driveLeftBumper.whenPressed(new RotationControl());
+    //intake balls
     driveStart = new JoystickButton(drivePad, 8);
     driveStart.whenPressed(new SelfTestCommand());
   
