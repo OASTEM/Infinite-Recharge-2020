@@ -31,7 +31,7 @@ public class SelfTestCommand extends CommandBase {
 
   public SelfTestCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.intake);
+    addRequirements(RobotContainer.lowDumper);
     addRequirements(RobotContainer.climber);
     addRequirements(RobotContainer.cp_Man);
     addRequirements(RobotContainer.highShooter);
