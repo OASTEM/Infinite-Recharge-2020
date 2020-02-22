@@ -14,6 +14,7 @@ import com.revrobotics.ControlType;
 import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -74,9 +75,14 @@ public class Climber extends SubsystemBase {
     
     if(rightEncoder.getPosition() > 50 && rightMotor.get() > 0) {
       runRightMotor(0.0);
-    }
+    }*/
 
-    System.out.println("Encoder Position: " + leftEncoder.getPosition() + " Left Power: " + leftMotor.get());*/
+    SmartDashboard.putNumber("Left Encoder Position: ", leftEncoder.getPosition());
+    SmartDashboard.putNumber("Right Encoder Position: ", rightEncoder.getPosition());
+
+
+
+    System.out.println("Encoder Position: " + leftEncoder.getPosition() + " Left Power: " + leftMotor.get());
     
   }
 

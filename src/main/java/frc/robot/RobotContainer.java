@@ -31,7 +31,7 @@ public class RobotContainer {
   public static final Climber climber = new Climber();
   public static final ControlPanelMan cp_Man = new ControlPanelMan();
   public static final HighShooter highShooter = new HighShooter();
-  public static final Intake intake = new Intake();
+  public static final LowDumper lowDumper = new LowDumper();
   public static final NavX navX = new NavX();
 
   public JoystickButton driveA;
@@ -85,14 +85,15 @@ public class RobotContainer {
     //driveY.whilePressed(new BringClimberUp());
     
     driveRightBumper = new JoystickButton(drivePad, 6);
-    driveRightBumper.whenPressed(new GoToGoalColor("G"));
+    //driveRightBumper.whenPressed(new GoToGoalColor("G"));
     //driveRightBumper.whenPressed(new GoToGoalColor(DriverStation.getInstance().getGameSpecificMessage().substring(0, 1)));
+    driveRightBumper.whenHeld(new OuttakeBalls());
 
     driveLeftBumper = new JoystickButton(drivePad, 5);
-    driveLeftBumper.whenPressed(new IntakeBalls());
+    driveLeftBumper.whenHeld(new IntakeBalls());
 
     driveStart = new JoystickButton(drivePad, 8);
-    driveStart.whenPressed(new SelfTestCommand());
+    driveStart.whenHeld(new SelfTestCommand());
   
     opA = new JoystickButton(opPad, 1);
     //opA.whenPressed(new GoToGoalColor("R"));
