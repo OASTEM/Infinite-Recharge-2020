@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
+import frc.robot.commands.Auto.Middle;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -22,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final BringClimberUp m_autoCommand = new BringClimberUp();
+  private final Middle m_autoCommand = new Middle();
   public static final LogitechGamingPad drivePad = new LogitechGamingPad(0);
   public static final LogitechGamingPad opPad = new LogitechGamingPad(1);
   public static final DriveTrain drive = new DriveTrain();
@@ -75,7 +76,7 @@ public class RobotContainer {
     //driveA.whenPressed(new drivePadSlowModeDrive());
 
     driveB = new JoystickButton(drivePad, 2);
-    driveB.whenPressed(new DriveDistance(5));
+    driveB.whenPressed(new DriveDistance(10));
 //19 inches per rot
 
     driveX = new JoystickButton(drivePad, 3);
@@ -87,7 +88,7 @@ public class RobotContainer {
     driveRightBumper = new JoystickButton(drivePad, 6);
     //driveRightBumper.whenPressed(new GoToGoalColor("G"));
     //driveRightBumper.whenPressed(new GoToGoalColor(DriverStation.getInstance().getGameSpecificMessage().substring(0, 1)));
-    driveRightBumper.whenHeld(new OuttakeBalls());
+    driveRightBumper.whenPressed(new OuttakeBalls(0.5));
 
     driveLeftBumper = new JoystickButton(drivePad, 5);
     driveLeftBumper.whenHeld(new IntakeBalls());
@@ -108,10 +109,10 @@ public class RobotContainer {
     opY.whenHeld(new BringClimberUp());
 
     opLeftBumper = new JoystickButton(opPad, 5);
-    //opLeftBumper.whenPressed(command);
+    opLeftBumper.whenPressed(new RotationControl());
 
     opRightBumper = new JoystickButton(opPad, 6);
-    //opRightBumper.whenPressed(command);
+    opRightBumper.whenPressed(new GoToGoalColor("R"));
   }
 
 

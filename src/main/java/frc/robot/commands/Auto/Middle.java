@@ -10,6 +10,7 @@ package frc.robot.commands.Auto;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveDistance;
 import frc.robot.commands.IntakeBalls;
+import frc.robot.commands.OuttakeBalls;
 import frc.robot.commands.ShootHigh;
 import frc.robot.commands.TurnAngle;
 
@@ -23,6 +24,6 @@ public class Middle extends SequentialCommandGroup {
   public Middle() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new ShootHigh(), new TurnAngle(180), new DriveDistance(1000), new IntakeBalls(), new DriveDistance(1000), new ShootHigh());
+    super(new DriveDistance(5), new OuttakeBalls(1.0), new DriveDistance(-10));
   }
 }

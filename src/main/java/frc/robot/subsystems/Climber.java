@@ -82,7 +82,7 @@ public class Climber extends SubsystemBase {
 
 
 
-    System.out.println("Encoder Position: " + leftEncoder.getPosition() + " Left Power: " + leftMotor.get());
+    //System.out.println("Encoder Position: " + leftEncoder.getPosition() + " Left Power: " + leftMotor.get());
     
   }
 

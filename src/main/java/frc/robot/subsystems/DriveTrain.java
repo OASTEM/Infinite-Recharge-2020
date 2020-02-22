@@ -30,8 +30,8 @@ public class DriveTrain extends SubsystemBase {
    */
   CANSparkMax frontLeft; 
   CANSparkMax frontRight;
-  CANSparkMax backLeft;
-  CANSparkMax backRight;
+  public CANSparkMax backLeft;
+  public CANSparkMax backRight;
 
   CANPIDController leftController;
   CANPIDController rightController;
@@ -69,13 +69,13 @@ public class DriveTrain extends SubsystemBase {
     reset();
 
     //sets PID gains for position control for the left pid controller
-    leftController.setP(Constants.dPos_kP, Constants.dPos_Slot);
+    leftController.setP(0.8, Constants.dPos_Slot);
     leftController.setI(Constants.dPos_kI, Constants.dPos_Slot);
     leftController.setD(Constants.dPos_kD, Constants.dPos_Slot);
     leftController.setFF(Constants.dPos_kF, Constants.dPos_Slot);
     
     //sets PID gains for position control for the right pid controller
-    rightController.setP(Constants.dPos_kP, Constants.dPos_Slot);
+    rightController.setP(0.4, Constants.dPos_Slot);
     rightController.setI(Constants.dPos_kI, Constants.dPos_Slot);
     rightController.setD(Constants.dPos_kD, Constants.dPos_Slot);
     rightController.setFF(Constants.dPos_kF, Constants.dPos_Slot);
@@ -170,11 +170,11 @@ public class DriveTrain extends SubsystemBase {
     return backRight.getOutputCurrent();
   }
   
-  public double getLeftEncoderCount() {
+  public double getLeftPosition() {
     return leftEncoder.getPosition();
   }
 
-  public double getRightEncoderCount() {
+  public double getRightPosition() {
     return rightEncoder.getPosition();
   }
 
@@ -189,10 +189,6 @@ public class DriveTrain extends SubsystemBase {
   public void reset() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
-  }
-
-  public double getPosition() {
-    return leftEncoder.getPosition();
   }
 }
 

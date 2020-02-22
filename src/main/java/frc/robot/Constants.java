@@ -22,7 +22,7 @@ public final class Constants {
     public static final double dMaxOutput = 0.4;
 
     public static final int dPos_Slot = 0;
-    public static final double dPos_kP = 1.0;
+    public static final double dPos_kP = 0.7;
     public static final double dPos_kI = 0.0;
     public static final double dPos_kD = 0.0;
     public static final double dPos_kF = 0.0;

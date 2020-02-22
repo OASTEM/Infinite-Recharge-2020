@@ -18,6 +18,7 @@ public class DriveDistance extends CommandBase {
    */
 
   private double goal;
+  private Timer timer = new Timer();
 
   public DriveDistance(double goal) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -28,6 +29,7 @@ public class DriveDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer.start();
     RobotContainer.drive.reset();
     Timer.delay(0.1);
     RobotContainer.drive.drivePosition(goal);
@@ -36,19 +38,25 @@ public class DriveDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("DriveTrain Pos", RobotContainer.drive.getPosition());
+    SmartDashboard.putNumber("DriveTrain Left Pos", RobotContainer.drive.getLeftPosition());
+    SmartDashboard.putNumber("DriveTrain Right Pos", RobotContainer.drive.getRightPosition());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.drive.stop();
+    if(interrupted) {
+      RobotContainer.drive.stop();
+    }
+    else {
+      RobotContainer.drive.stop();
+    }
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
-    //return (RobotContainer.drive.getLeftEncoderCount()) > (goal-50);
+    //return false;
+    return timer.get() >= 0.5 && (Math.abs(RobotContainer.drive.backLeft.get()) < 0.08 && Math.abs(RobotContainer.drive.backRight.get()) < 0.08);
   }
 }
