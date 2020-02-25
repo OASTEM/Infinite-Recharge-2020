@@ -74,7 +74,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     driveA = new JoystickButton(drivePad, 1);
     //driveA.whenPressed(new drivePadSlowModeDrive());
-    driveA.whenPressed(new TurnAngle(90));
+    driveA.whenPressed(new TurnAngle(10));
 
     driveB = new JoystickButton(drivePad, 2);
     driveB.whenPressed(new Middle());

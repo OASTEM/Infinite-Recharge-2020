@@ -38,7 +38,7 @@ public class TurnAngle extends CommandBase {
   public void execute() {
     double currentAngle = RobotContainer.navX.getAngle();
     System.out.println(currentAngle);
-    double power = (angle - currentAngle)/angle;
+    double power = ((angle - Math.abs(currentAngle))/angle)*(angle*0.0146);
     if (angle > 0) {
       if (power > .15) {
         RobotContainer.drive.drivePercentOutput(-.15, .15);
