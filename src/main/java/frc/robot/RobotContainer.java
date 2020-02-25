@@ -74,9 +74,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
     driveA = new JoystickButton(drivePad, 1);
     //driveA.whenPressed(new drivePadSlowModeDrive());
+    driveA.whenPressed(new TurnAngle(90));
 
     driveB = new JoystickButton(drivePad, 2);
-    driveB.whenPressed(new DriveDistance(10));
+    driveB.whenPressed(new Middle());
 //19 inches per rot
 
     driveX = new JoystickButton(drivePad, 3);
@@ -88,7 +89,7 @@ public class RobotContainer {
     driveRightBumper = new JoystickButton(drivePad, 6);
     //driveRightBumper.whenPressed(new GoToGoalColor("G"));
     //driveRightBumper.whenPressed(new GoToGoalColor(DriverStation.getInstance().getGameSpecificMessage().substring(0, 1)));
-    driveRightBumper.whenPressed(new OuttakeBalls(0.5));
+    driveRightBumper.whenPressed(new OuttakeBalls(1));
 
     driveLeftBumper = new JoystickButton(drivePad, 5);
     driveLeftBumper.whenHeld(new IntakeBalls());
