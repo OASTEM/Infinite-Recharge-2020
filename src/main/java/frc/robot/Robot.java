@@ -24,6 +24,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public static int selfTestCount;
+  public static double driveConstant;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -34,6 +35,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    driveConstant = Constants.regMode;
 
     selfTestCount = 0;
   }
@@ -105,7 +107,19 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    /*if(RobotContainer.drivePad.getYButton()) {
+      if(Robot.driveConstant == Constants.regMode) {
+        Robot.driveConstant = Constants.slowMode;
+        System.out.println("changed to slow");
+      }
+      else {
+        Robot.driveConstant = Constants.regMode;
+        System.out.println("changed to reg");
+      }
+    }
+    System.out.println(driveConstant);*/
   }
+
 
   @Override
   public void testInit() {

@@ -16,6 +16,9 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final double regMode = 1.0;
+    public static final double slowMode = 0.45;
+
     public static final int dPosFactor = 42;
 
     public static final double dMinOutput = -0.4;

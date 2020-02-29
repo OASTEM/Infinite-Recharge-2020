@@ -81,15 +81,16 @@ public class RobotContainer {
 //19 inches per rot
 
     driveX = new JoystickButton(drivePad, 3);
+    driveX.whenPressed(new GamepadDrive());
     //driveX.whilePressed(new BringClimberDown());
 
     driveY = new JoystickButton(drivePad, 4);
-    //driveY.whilePressed(new BringClimberUp());
+    driveY.whenPressed(new GamepadDriveSlow());
     
     driveRightBumper = new JoystickButton(drivePad, 6);
     //driveRightBumper.whenPressed(new GoToGoalColor("G"));
     //driveRightBumper.whenPressed(new GoToGoalColor(DriverStation.getInstance().getGameSpecificMessage().substring(0, 1)));
-    driveRightBumper.whenPressed(new OuttakeBalls(1));
+    driveRightBumper.whileHeld(new OuttakeBalls(0.5));
 
     driveLeftBumper = new JoystickButton(drivePad, 5);
     driveLeftBumper.whenHeld(new IntakeBalls());
@@ -98,7 +99,7 @@ public class RobotContainer {
     driveStart.whenHeld(new SelfTestCommand());
   
     opA = new JoystickButton(opPad, 1);
-    //opA.whenPressed(new GoToGoalColor("R"));
+    opA.whenPressed(new AdjustClimber());
 
     opB = new JoystickButton(opPad, 2);
     //opB.whenPressed(command);

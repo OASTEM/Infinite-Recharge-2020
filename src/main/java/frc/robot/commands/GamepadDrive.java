@@ -9,7 +9,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.LogitechGamingPad;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class GamepadDrive extends CommandBase {
@@ -34,12 +36,28 @@ public class GamepadDrive extends CommandBase {
     timer.start();
 
     time = timer.get();
+
+    Robot.driveConstant = Constants.regMode;
+
+    /*System.out.println(Robot.driveConstant);
+
+    if(Robot.driveConstant == Constants.regMode) {
+      Robot.driveConstant = Constants.slowMode;
+      System.out.println("changed to slow");
+    }
+    else {
+      Robot.driveConstant = Constants.regMode;
+      System.out.println("changed to reg");
+    }
+
+    System.out.println(Robot.driveConstant);*/
   }
+  
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.drive.drivePercentOutput(0.6 * RobotContainer.drivePad.getLeftAnalogY(), 0.6 * RobotContainer.drivePad.getRightAnalogY());
+    RobotContainer.drive.drivePercentOutput(Robot.driveConstant * RobotContainer.drivePad.getLeftAnalogY(), Robot.driveConstant * RobotContainer.drivePad.getRightAnalogY());
     /*if(RobotContainer.drive.getLeftMotorOutput() + RobotContainer.drive.getRightMotorOutput() <= 0.1) {
       timer.reset();
     
@@ -70,6 +88,7 @@ public class GamepadDrive extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotContainer.drive.stop();
   }
 
   // Returns true when the command should end.

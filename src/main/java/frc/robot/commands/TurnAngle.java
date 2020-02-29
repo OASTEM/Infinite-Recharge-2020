@@ -38,26 +38,26 @@ public class TurnAngle extends CommandBase {
   public void execute() {
     double currentAngle = RobotContainer.navX.getAngle();
     System.out.println(currentAngle);
-    double power = ((angle - Math.abs(currentAngle))/angle)*(angle*0.0146);
+    double power = ((angle - currentAngle)/angle)*(angle*0.0146);
     if (angle > 0) {
       if (power > .15) {
         RobotContainer.drive.drivePercentOutput(-.15, .15);
         System.out.println("first condition");
       } else {
         System.out.println("else");
-        RobotContainer.drive.drivePercentOutput(power,-power);
+        RobotContainer.drive.drivePercentOutput(-power,power);
       }
-      System.out.println("Target: " + angle);
-      System.out.println("Current Angle: " +currentAngle);
-      System.out.println("Power: " + power);
     }
     else if (angle < 0) {
       power *= -1;
-      if (power < -.15) {
+      if (Math.abs(power) > 0.15) {
         RobotContainer.drive.drivePercentOutput(.15, -.15);
       }
       else RobotContainer.drive.drivePercentOutput(power,-power);
     }
+    System.out.println("Target: " + angle);
+      System.out.println("Current Angle: " +currentAngle);
+      System.out.println("Power: " + power);
 
   }
 
