@@ -39,7 +39,12 @@ public class DriveTrain extends SubsystemBase {
   CANEncoder leftEncoder;
   CANEncoder rightEncoder;
 
+  Timer timer;
+
   public DriveTrain() {
+    timer = new Timer();
+    timer.start();
+
     frontLeft = new CANSparkMax(2, MotorType. kBrushless); //2 4
     backLeft = new CANSparkMax(1, MotorType.kBrushless); //1   3
     frontRight = new CANSparkMax(3, MotorType.kBrushless); //3  1 
@@ -122,9 +127,18 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
     //System.out.println("Left: " + leftEncoder.getPosition());
     //System.out.println("Right: " + rightEncoder.getPosition());
+    /*System.out.println("Back Left: " + backLeft.getOutputCurrent());
+    System.out.println("Back Right: " + backRight.getOutputCurrent());
+    System.out.println("Front Left: " + frontLeft.getOutputCurrent());
+    System.out.println("Front Right: " + frontRight.getOutputCurrent());
+    */
+    //System.out.println("Encoder:" +  backRight.getEncoder().getPosition());
+    //System.out.println("Time: " + timer.getFPGATimestamp());
+
   }
 
   public void drivePercentOutput(double left, double right) {
+    if (Math.abs(RobotContainer.navX.getLinearAccelY()) < .4) {
     if(Math.abs(left) >= 0.1) {
       backLeft.set(left);
     }
@@ -139,9 +153,101 @@ public class DriveTrain extends SubsystemBase {
       backRight.set(0.0);
     }
   }
+    else {
+      stop();
+    }
+  }
+
+  public void drivePercentOutput(double left, double right, double turnPower) {
+    if(Math.abs(left) >= 0.1) {
+      if(left > 0 && right < 0) {
+        backLeft.set(0.35);
+        backRight.set(0.35);
+      }
+      else if(right > 0 && left < 0) {
+        backLeft.set(-0.35);
+        backRight.set(-0.35);
+      }
+      else {
+        backLeft.set(left);
+      }
+    }
+    else {
+      backLeft.set(0.0);
+    }
+
+    if(Math.abs(right) >= 0.1) {
+        if(right > 0 && left < 0) {
+          backLeft.set(-0.35);
+          backRight.set(-0.35);
+        }
+        else {
+          backRight.set(right);
+        }
+      }
+    else {
+      backRight.set(0.0);
+    }
+  }
+
+  public void drivePercent(double left, double right) {
+    boolean leftPlus = (left > 0);
+    boolean rightPlus = (right > 0);
+    //if (Math.abs(RobotContainer.navX.getLinearAccelY()) < .4) {
+    if (leftPlus == rightPlus) {
+      if(Math.abs(left) >= 0.1) {
+        backLeft.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
+        backLeft.set(left);
+      }
+      else {
+        backLeft.set(0);
+      }
+
+      if(Math.abs(right) >= 0.1) {
+        backRight.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
+        backRight.set(-right);
+      }
+      else {
+        backRight.set(0.0);
+      }
+    }
+    else {
+      if(Math.abs(left) >= 0.1) {
+        backLeft.setOpenLoopRampRate(.15);
+        backLeft.set(left * .4);
+      }
+      else {
+        backLeft.set(0);
+      }
+
+      if(Math.abs(right) >= 0.1) { 
+        backRight.setOpenLoopRampRate(.15); 
+        backRight.set(-right * .4);
+      }
+      else {
+        backRight.set(0.0);
+      }
+    }
+  //}
+    //else {
+      //stop();
+    //}
+  }
+  
 
   public void drivePosition(double goal) {
+    goal /= 19;
     leftController.setReference(-goal/2, ControlType.kPosition, Constants.dPos_Slot);
+    rightController.setReference(goal, ControlType.kPosition, Constants.dPos_Slot);
+  }
+
+  public void driveLeftPosition(double goal) {
+    goal /= 19;
+    leftController.setReference(-goal/2, ControlType.kPosition, Constants.dPos_Slot);
+  }
+
+  public void driveRightPosition(double goal) {
+    goal /= 19;
     rightController.setReference(goal, ControlType.kPosition, Constants.dPos_Slot);
   }
 
@@ -151,7 +257,7 @@ public class DriveTrain extends SubsystemBase {
   }
   
   public void stop() {
-    drivePercentOutput(0.0,0.0);
+    drivePercent(0.0, 0.0);
   }
 
   public double getFrontLeftCurrent() {
@@ -189,6 +295,11 @@ public class DriveTrain extends SubsystemBase {
   public void reset() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
+  }
+
+  public void setOpenRampRate(double rate) {
+    backLeft.setOpenLoopRampRate(rate);
+    backRight.setOpenLoopRampRate(rate);
   }
 }
 

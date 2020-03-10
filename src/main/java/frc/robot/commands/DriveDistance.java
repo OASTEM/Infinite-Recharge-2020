@@ -18,12 +18,16 @@ public class DriveDistance extends CommandBase {
    */
 
   private double goal;
+  private String feedbackChoice;
   private Timer timer = new Timer();
+  private double delayTime;
 
-  public DriveDistance(double goal) {
+  public DriveDistance(double goal, String feedbackChoice, double delay) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.goal = goal;
+    this.feedbackChoice = feedbackChoice;
     addRequirements(RobotContainer.drive);
+    delayTime = delay;
   }
 
   // Called when the command is initially scheduled.
@@ -32,7 +36,18 @@ public class DriveDistance extends CommandBase {
     timer.start();
     RobotContainer.drive.reset();
     Timer.delay(0.1);
-    RobotContainer.drive.drivePosition(goal);
+
+    if(feedbackChoice.equals("B")) {
+      RobotContainer.drive.drivePosition(goal);
+    }
+    else if(feedbackChoice.equals("R")) {
+      RobotContainer.drive.driveRightPosition(goal);
+      RobotContainer.drive.backLeft.set(RobotContainer.drive.backRight.get());
+    }
+    else {
+      RobotContainer.drive.driveLeftPosition(goal);
+      RobotContainer.drive.backRight.set(RobotContainer.drive.backLeft.get());
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -45,18 +60,29 @@ public class DriveDistance extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if(interrupted) {
+    /*if(interrupted) {
       RobotContainer.drive.stop();
     }
-    else {
+    else {*/
+      Timer.delay(delayTime);
       RobotContainer.drive.stop();
-    }
+    //}
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     //return false;
-    return timer.get() >= 0.5 && (Math.abs(RobotContainer.drive.backLeft.get()) < 0.08 && Math.abs(RobotContainer.drive.backRight.get()) < 0.08);
+    if(feedbackChoice.equals("B")) {
+      return (timer.get() >= 0.5 && (Math.abs(RobotContainer.drive.backLeft.get()) < 0.08 && Math.abs(RobotContainer.drive.backRight.get()) < 0.08)) || (timer.get() > 4);
+    }
+    else if(feedbackChoice.equals("R")){
+      return (timer.get() >= 0.5 && (Math.abs(RobotContainer.drive.backRight.get()) < 0.08)) || (timer.get() > 4);
+    }
+    else if(feedbackChoice.equals("L")){
+      return (timer.get() >= 0.5 && (Math.abs(RobotContainer.drive.backLeft.get()) < 0.08)) || (timer.get() > 4);
+    }
+    else return timer.get() > 4;
+    
   }
 }

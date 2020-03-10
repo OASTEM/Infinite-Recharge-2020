@@ -39,10 +39,10 @@ public class AdjustClimber extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(navX.getAccelY() < -.1) {
+    if(navX.getAccelY() < -.1 && climber.getLeftPosition() > 50) {
       climber.runLeftMotor(-0.2);
     }
-    else if (navX.getAccelY() > .1) {
+    else if (navX.getAccelY() > .1 && climber.getRightPosition() < -50) {
       climber.runRightMotor(0.2);
     }
     System.out.println("Y: " + RobotContainer.navX.getAccelY());

@@ -10,7 +10,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.GamepadDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -107,17 +106,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    /*if(RobotContainer.drivePad.getYButton()) {
-      if(Robot.driveConstant == Constants.regMode) {
-        Robot.driveConstant = Constants.slowMode;
-        System.out.println("changed to slow");
-      }
-      else {
-        Robot.driveConstant = Constants.regMode;
-        System.out.println("changed to reg");
-      }
-    }
-    System.out.println(driveConstant);*/
+    
   }
 
 

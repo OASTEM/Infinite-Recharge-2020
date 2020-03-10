@@ -34,6 +34,8 @@ public class Climber extends SubsystemBase {
   CANEncoder leftEncoder;
   CANEncoder rightEncoder;
 
+  boolean isStart;
+
   public Climber() {
     leftMotor = new CANSparkMax(5, MotorType.kBrushless);
     rightMotor = new CANSparkMax(6, MotorType.kBrushless);
@@ -62,14 +64,15 @@ public class Climber extends SubsystemBase {
     leftMotor.setOpenLoopRampRate(0.5);
     rightMotor.setOpenLoopRampRate(0.5);
 
+    isStart = true;
+
     reset();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    /*if(leftEncoder.getPosition() > 50) 
-      if(leftMotor.get() < 0) {
+    /*if(leftEncoder.getPosition() > 50) {
       runLeftMotor(0.0);
     }
     
@@ -77,25 +80,34 @@ public class Climber extends SubsystemBase {
       runRightMotor(0.0);
     }*/
 
-    SmartDashboard.putNumber("Left Encoder Position: ", leftEncoder.getPosition());
-    SmartDashboard.putNumber("Right Encoder Position: ", rightEncoder.getPosition());
-
-
-
-    //System.out.println("Encoder Position: " + leftEncoder.getPosition() + " Left Power: " + leftMotor.get());
-    
+    //System.out.println("Left Encoder Position: " + leftEncoder.getPosition() + " Left Power: " + leftMotor.get());
+    //System.out.println("Right Encoder Position: " + rightEncoder.getPosition() + " Right Power: " + rightMotor.get());
+  
+    if(getLeftPosition() > 10 && getRightPosition() < -10) {
+      isStart = false;
+    }
   }
 
   public void gamepadClimb(double leftInput, double rightInput) {
     if(Math.abs(leftInput) >= 0.25) {
+      if(leftEncoder.getPosition() > 250 && leftInput < 0) {
+        runLeftMotor(0.0);
+      }
+      else {
       runLeftMotor(-leftInput);
+      }
     }
     else {
       runLeftMotor(0);
     }
 
     if(Math.abs(rightInput) >= 0.25) {
-      runRightMotor(rightInput);
+      if(rightEncoder.getPosition() < -250 && rightInput < 0) {
+        runRightMotor(0.0);
+      }
+      else {
+        runRightMotor(rightInput);
+      }
     }
     else{
       runRightMotor(0);

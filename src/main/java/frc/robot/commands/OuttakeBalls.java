@@ -17,11 +17,14 @@ public class OuttakeBalls extends CommandBase {
    */
   double timeout;
   Timer timer;
+  boolean isAuto;
   
-  public OuttakeBalls(double timeout) {
+  public OuttakeBalls(double timeout, boolean isAuto) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.timeout = timeout;
+    this.isAuto = isAuto;
     addRequirements(RobotContainer.lowDumper);
+    addRequirements(RobotContainer.drive);
     timer = new Timer();
   }
 
@@ -29,6 +32,9 @@ public class OuttakeBalls extends CommandBase {
   @Override
   public void initialize() {
     RobotContainer.lowDumper.outtake();
+    if(isAuto) {
+      RobotContainer.drive.drivePercent(-.15, -.15);
+    }
     timer.start();
   }
 
@@ -41,6 +47,7 @@ public class OuttakeBalls extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.lowDumper.stop();
+    RobotContainer.drive.stop();
   }
 
   // Returns true when the command should end.

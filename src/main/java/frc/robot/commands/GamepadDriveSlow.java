@@ -26,6 +26,7 @@ public class GamepadDriveSlow extends CommandBase {
   public GamepadDriveSlow() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.drive);
+    addRequirements(RobotContainer.navX);
     drivePad = RobotContainer.drivePad;
   }
 
@@ -38,6 +39,8 @@ public class GamepadDriveSlow extends CommandBase {
     time = timer.get();
 
     Robot.driveConstant = Constants.slowMode;
+    RobotContainer.navX.reset();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.

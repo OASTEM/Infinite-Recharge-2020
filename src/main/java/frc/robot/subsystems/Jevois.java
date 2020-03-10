@@ -20,7 +20,7 @@ public class Jevois extends SubsystemBase {
   /**
    * Creates a new Jevois.
    */
-  private double distance = 0.0;
+  private double depth = 0.0;
   private double offsetAngle = 0.0;
 
   private SerialPort camPort;
@@ -37,7 +37,7 @@ public class Jevois extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     //backgroundUpdate();
-    //System.out.println("Distance: " + getDistance());
+    //System.out.println("depth: " + getdepth());
     //System.out.println("Offset Angle: " +getOffsetAngle());
   }
 
@@ -85,11 +85,11 @@ public class Jevois extends SubsystemBase {
         jsonData = (JSONObject) parser.parse(data);
 
         if (jsonData.size() == 1) {
-          distance = -1;
+          depth = -1;
           offsetAngle = -1;
         } else {
-          distance = (Double) jsonData.get("Distance:");
-          offsetAngle = (Double) jsonData.get("Offset_angle:");
+          depth = (Double) jsonData.get("Depth");
+          offsetAngle = (Double) jsonData.get("Offset_angle");
         }
       }
     } catch (Exception e) {
@@ -97,8 +97,8 @@ public class Jevois extends SubsystemBase {
     }
   }
 
-  public double getDistance() {
-    return distance;  
+  public double getDepth() {
+    return depth;  
   }
 
   public double getOffsetAngle() {

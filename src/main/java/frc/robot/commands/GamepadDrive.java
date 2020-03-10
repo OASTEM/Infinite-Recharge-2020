@@ -57,32 +57,9 @@ public class GamepadDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.drive.drivePercentOutput(Robot.driveConstant * RobotContainer.drivePad.getLeftAnalogY(), Robot.driveConstant * RobotContainer.drivePad.getRightAnalogY());
-    /*if(RobotContainer.drive.getLeftMotorOutput() + RobotContainer.drive.getRightMotorOutput() <= 0.1) {
-      timer.reset();
+    //System.out.println(Robot.driveConstant);
     
-    }
-    else {
-      if(time == .5){
-        RobotContainer.drive.stop();
-        Timer.delay(0.1);
-        RobotContainer.drive.drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
-      }
-      else if(time == 1) {
-        RobotContainer.drive.stop();
-        Timer.delay(0.1);
-        RobotContainer.drive.drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
-      }
-      else if(time == 2.5) {
-        RobotContainer.drive.stop();
-        Timer.delay(0.1);
-        RobotContainer.drive.drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY(), RobotContainer.drivePad.getRightAnalogY());
-      }
-      else{
-        double multi = 1 - (RobotContainer.drivePad.getLeftTriggerValue() * .5);
-        RobotContainer.drive.drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY() * multi, RobotContainer.drivePad.getRightAnalogY() * multi);
-      }
-    }*/
+    RobotContainer.drive.drivePercent(Robot.driveConstant * RobotContainer.drivePad.getLeftAnalogY(), Robot.driveConstant * RobotContainer.drivePad.getRightAnalogY());
   }
 
   // Called once the command ends or is interrupted.

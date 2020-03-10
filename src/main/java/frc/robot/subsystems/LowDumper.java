@@ -17,9 +17,11 @@ public class LowDumper extends SubsystemBase {
    * Creates a new Intake.
    */
   VictorSPX motor1; 
+  VictorSPX motor2;
   
   public LowDumper() {
     motor1 = new VictorSPX(9);
+    motor2 = new VictorSPX(7);
   }
 
   @Override
@@ -28,14 +30,17 @@ public class LowDumper extends SubsystemBase {
   }
 
   public void intake() {
-    motor1.set(ControlMode.PercentOutput, 0.5);
+    motor1.set(ControlMode.PercentOutput, -1);
+    motor2.set(ControlMode.PercentOutput, 1);
   }
 
   public void outtake() {
-    motor1.set(ControlMode.PercentOutput, -0.5);
+    motor1.set(ControlMode.PercentOutput, 1);
+    motor2.set(ControlMode.PercentOutput, -1);
   }
 
   public void stop() {
     motor1.set(ControlMode.PercentOutput, 0);
+    motor2.set(ControlMode.PercentOutput, 0);
   }
 }
