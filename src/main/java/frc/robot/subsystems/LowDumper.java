@@ -39,6 +39,11 @@ public class LowDumper extends SubsystemBase {
     motor2.set(ControlMode.PercentOutput, -1);
   }
 
+  public void groundIntake() {
+    motor1.set(ControlMode.PercentOutput, 0.7);
+    motor2.set(ControlMode.PercentOutput, 0.7);
+  }
+
   public void stop() {
     motor1.set(ControlMode.PercentOutput, 0);
     motor2.set(ControlMode.PercentOutput, 0);

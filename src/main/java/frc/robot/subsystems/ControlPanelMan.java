@@ -32,10 +32,17 @@ public class ControlPanelMan extends SubsystemBase {
 
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
+  //Our Wheel
   private final Color kBlueTarget = ColorMatch.makeColor(0.185, 0.420, 0.395); //.143,.427,.429
   private final Color kGreenTarget = ColorMatch.makeColor(0.180, 0.620, 0.200); //.197,.561,.240
   private final Color kRedTarget = ColorMatch.makeColor(0.627, 0.310, 0.063); //.561, .232, .114
   private final Color kYellowTarget = ColorMatch.makeColor(0.386, 0.516, 0.088);//.361, .524, .113
+
+  /*//Field Wheel
+  private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429); //.143,.427,.429
+  private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240); //.197,.561,.240
+  private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114); //.561, .232, .114
+  private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);//.361, .524, .113*/
 
   private final String[] colorList = {"Y", "R", "G", "B"};
 

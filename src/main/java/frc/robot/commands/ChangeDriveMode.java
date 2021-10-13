@@ -27,7 +27,7 @@ public class ChangeDriveMode extends InstantCommand {
     if(Robot.driveConstant == Constants.regMode) {
       Robot.driveConstant = Constants.slowMode;
     }
-    else if(Robot.driveConstant == Constants.slowMode){
+    else {
       Robot.driveConstant = Constants.regMode;
     }
     System.out.println(Robot.driveConstant);

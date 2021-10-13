@@ -35,30 +35,24 @@ public class GamepadDrive extends CommandBase {
     timer = new Timer();
     timer.start();
 
-    time = timer.get();
+    //System.out.println(Robot.driveConstant);
 
-    Robot.driveConstant = Constants.regMode;
-
-    /*System.out.println(Robot.driveConstant);
-
-    if(Robot.driveConstant == Constants.regMode) {
+    /*if(Robot.driveConstant == Constants.regMode) {
       Robot.driveConstant = Constants.slowMode;
       System.out.println("changed to slow");
     }
     else {
       Robot.driveConstant = Constants.regMode;
       System.out.println("changed to reg");
-    }
+    }*/
 
-    System.out.println(Robot.driveConstant);*/
   }
   
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println(Robot.driveConstant);
-    
+    System.out.println("a");
     RobotContainer.drive.drivePercent(Robot.driveConstant * RobotContainer.drivePad.getLeftAnalogY(), Robot.driveConstant * RobotContainer.drivePad.getRightAnalogY());
   }
 

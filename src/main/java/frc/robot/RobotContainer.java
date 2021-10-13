@@ -7,7 +7,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -63,6 +65,8 @@ public class RobotContainer {
   public JoystickButton opLeftBumper;
   public JoystickButton opRightBumper;
 
+  public Joystick attacStick = new Joystick(2);
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -93,11 +97,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     driveA = new JoystickButton(drivePad, 1);
+    driveA.whileHeld(new ShootHigh());
     //driveA.whenPressed(new drivePadSlowModeDrive());
-    driveA.whenPressed(new RampRateChange());
+    //driveA.whenPressed(new RampRateChange());
 
     driveB = new JoystickButton(drivePad, 2);
-    driveB.whenPressed(new DriveDistanceCurve(90, 10));
+    //driveB.whenPressed(new DriveDistanceCurve(90, 10));
 //19 inches per rot
 
     driveX = new JoystickButton(drivePad, 3);
@@ -132,7 +137,17 @@ public class RobotContainer {
     opLeftBumper.whenPressed(new RotationControl());
 
     opRightBumper = new JoystickButton(opPad, 6);
-    opRightBumper.whenPressed(new GoToGoalColor("R"));
+    //opRightBumper.whenPressed(new GoToGoalColor(DriverStation.getInstance().getGameSpecificMessage()));
+    opRightBumper.whenPressed(new GoToGoalColorGroup(DriverStation.getInstance().getGameSpecificMessage()));
+  
+    JoystickButton trigger = new JoystickButton(attacStick, 1);
+    trigger.whileHeld(new GroundIntake());
+
+    JoystickButton left = new JoystickButton(attacStick, 4);
+    left.whileHeld(new IntakeBalls());
+
+    JoystickButton right = new JoystickButton(attacStick, 5);
+    right.whileHeld(new OuttakeBalls(0.3, false));
   }
 
 

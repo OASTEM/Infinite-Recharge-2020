@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.LogitechGamingPad;
 import frc.robot.RobotContainer;
 import frc.robot.commands.GamepadDrive;
 
@@ -40,18 +41,21 @@ public class DriveTrain extends SubsystemBase {
   CANEncoder rightEncoder;
 
   Timer timer;
+  double isForwardTime;
+  double isBackwardTime;
 
   public DriveTrain() {
     timer = new Timer();
     timer.start();
 
-    frontLeft = new CANSparkMax(2, MotorType. kBrushless); //2 4
-    backLeft = new CANSparkMax(1, MotorType.kBrushless); //1   3
-    frontRight = new CANSparkMax(3, MotorType.kBrushless); //3  1 
-    backRight = new CANSparkMax(4, MotorType.kBrushless); //4 2
+    frontLeft = new CANSparkMax(2, MotorType. kBrushed); //2 4
+    backLeft = new CANSparkMax(1, MotorType.kBrushed); //1   3
+    frontRight = new CANSparkMax(3, MotorType.kBrushed); //3  1 
+    backRight = new CANSparkMax(4, MotorType.kBrushed); //4 2
 
-    //leftEncoder = frontLeft.getEncoder();
-    //rightEncoder = frontRight.getEncoder();
+    //leftEncoder = backLeft.getEncoder();
+    //rightEncoder = backRight.getEncoder();
+
 
     backLeft.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
     backRight.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
@@ -73,6 +77,7 @@ public class DriveTrain extends SubsystemBase {
 
     reset();
 
+    
     //sets PID gains for position control for the left pid controller
     leftController.setP(0.8, Constants.dPos_Slot);
     leftController.setI(Constants.dPos_kI, Constants.dPos_Slot);
@@ -90,7 +95,7 @@ public class DriveTrain extends SubsystemBase {
     
     leftController.setOutputRange(Constants.dMinOutput, Constants.dMaxOutput, Constants.dPos_Slot);
     rightController.setOutputRange(Constants.dMinOutput, Constants.dMaxOutput, Constants.dPos_Slot);
-
+  
     /*
      //configure necessary smart motion parameters for the left PID controllers
      leftController.setSmartMotionAccelStrategy(AccelStrategy.kTrapezoidal, Constants.dSmart_Motion_Slot);
@@ -119,11 +124,13 @@ public class DriveTrain extends SubsystemBase {
      rightController.setSmartMotionAllowedClosedLoopError(Constants.dSmart_Motion_Allowed_Error, Constants.dSmart_Motion_Slot);
     
     */
-    //setDefaultCommand(new GamepadDrive());
   }
 
   @Override
   public void periodic() {
+    LogitechGamingPad gamePad = new LogitechGamingPad(0);
+    System.out.println("b");
+    drivePercent(gamePad.getLeftAnalogY(), gamePad.getRightAnalogY());
     // This method will be called once per scheduler run
     //System.out.println("Left: " + leftEncoder.getPosition());
     //System.out.println("Right: " + rightEncoder.getPosition());
@@ -133,8 +140,8 @@ public class DriveTrain extends SubsystemBase {
     System.out.println("Front Right: " + frontRight.getOutputCurrent());
     */
     //System.out.println("Encoder:" +  backRight.getEncoder().getPosition());
-    //System.out.println("Time: " + timer.getFPGATimestamp());
-
+    //System.out.println("forward: " + isForwardTime);
+    //System.out.println("reverse: " + isBackwardTime);
   }
 
   public void drivePercentOutput(double left, double right) {
@@ -190,48 +197,72 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
-  public void drivePercent(double left, double right) {
-    boolean leftPlus = (left > 0);
-    boolean rightPlus = (right > 0);
-    //if (Math.abs(RobotContainer.navX.getLinearAccelY()) < .4) {
-    if (leftPlus == rightPlus) {
-      if(Math.abs(left) >= 0.1) {
-        backLeft.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
-        backLeft.set(left);
-      }
-      else {
-        backLeft.set(0);
-      }
+  /*public void drivePercent(double left, double right) {
+    boolean leftPlus = (left < 0);
+    boolean rightPlus = (right < 0);
 
-      if(Math.abs(right) >= 0.1) {
-        backRight.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
-        backRight.set(-right);
-      }
-      else {
-        backRight.set(0.0);
-      }
+    if(leftPlus && rightPlus) {
+      isForwardTime = timer.getFPGATimestamp();
+    }
+
+    boolean leftNeg = (left > 0);
+    boolean rightNeg = (right > 0);
+
+    if(leftNeg && rightNeg) {
+      isBackwardTime = timer.getFPGATimestamp();
+    }
+
+    if(Math.abs(isForwardTime - isBackwardTime) < 0.5) {
+      /*backLeft.set(left * 0.5);
+      backRight.set(right * -0.5);
+      backLeft.set(left);
+      backRight.set(-right);
     }
     else {
-      if(Math.abs(left) >= 0.1) {
+      if (leftPlus == rightPlus) {
+        backLeft.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
+        backRight.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
+        if(Math.abs(left) >= 0.1) {
+          //backLeft.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
+          backLeft.set(left);
+        }
+        else {
+          backLeft.set(0);
+        }
+  
+        if(Math.abs(right) >= 0.1) {
+          //backRight.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
+          backRight.set(-right);
+        }
+        else {
+          backRight.set(0);
+        }
+      }
+      else {
         backLeft.setOpenLoopRampRate(.15);
-        backLeft.set(left * .4);
-      }
-      else {
-        backLeft.set(0);
-      }
-
-      if(Math.abs(right) >= 0.1) { 
         backRight.setOpenLoopRampRate(.15); 
-        backRight.set(-right * .4);
-      }
-      else {
-        backRight.set(0.0);
+        if(Math.abs(left) >= 0.1) {
+          //backLeft.setOpenLoopRampRate(.15);
+          backLeft.set(left * .4);
+        }
+        else {
+          backLeft.set(0);
+        }
+  
+        if(Math.abs(right) >= 0.1) { 
+          //backRight.setOpenLoopRampRate(.15); 
+          backRight.set(-right * .4);
+        }
+        else {
+          backRight.set(0);
+        }
       }
     }
-  //}
-    //else {
-      //stop();
-    //}
+  }*/ 
+
+  public void drivePercent(double left, double right) {
+    backLeft.set(left);
+    backRight.set(-right);
   }
   
 

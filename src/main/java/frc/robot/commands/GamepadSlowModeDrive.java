@@ -29,7 +29,8 @@ public class GamepadSlowModeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.drive.drivePercentOutput(RobotContainer.drivePad.getLeftAnalogY()*.5, RobotContainer.drivePad.getRightAnalogY()*.5);
+   
+    RobotContainer.drive.drivePercent(RobotContainer.drivePad.getLeftAnalogY()*.5, RobotContainer.drivePad.getRightAnalogY()*.5);
   }
 
   // Called once the command ends or is interrupted.

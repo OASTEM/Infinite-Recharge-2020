@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -21,9 +22,10 @@ public class HighShooter extends SubsystemBase {
   private TalonSRX motor2;
 
   public HighShooter() {
-    motor1 = new TalonSRX(20);
-    motor2 = new TalonSRX(21);
-
+    motor1 = new TalonSRX(0);
+    motor2 = new TalonSRX(3);
+    motor1.setNeutralMode(NeutralMode.Coast);
+    motor2.setNeutralMode(NeutralMode.Coast);
   }
 
   @Override
@@ -32,8 +34,8 @@ public class HighShooter extends SubsystemBase {
   }
 
   public void shoot(double power) {
-    motor1.set(ControlMode.PercentOutput, power);
-    motor2.set(ControlMode.PercentOutput, power);
+    motor1.set(ControlMode.PercentOutput, -power);
+    motor2.set(ControlMode.PercentOutput, -power);
   }
 
   public void stop() {
