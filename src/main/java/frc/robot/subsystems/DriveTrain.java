@@ -48,7 +48,7 @@ public class DriveTrain extends SubsystemBase {
     timer = new Timer();
     timer.start();
 
-    frontLeft = new CANSparkMax(2, MotorType. kBrushed); //2 4
+    frontLeft = new CANSparkMax(2, MotorType.kBrushed); //2 4
     backLeft = new CANSparkMax(1, MotorType.kBrushed); //1   3
     frontRight = new CANSparkMax(3, MotorType.kBrushed); //3  1 
     backRight = new CANSparkMax(4, MotorType.kBrushed); //4 2
@@ -128,9 +128,6 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    LogitechGamingPad gamePad = new LogitechGamingPad(0);
-    System.out.println("b");
-    drivePercent(gamePad.getLeftAnalogY(), gamePad.getRightAnalogY());
     // This method will be called once per scheduler run
     //System.out.println("Left: " + leftEncoder.getPosition());
     //System.out.println("Right: " + rightEncoder.getPosition());
