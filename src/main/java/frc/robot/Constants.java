@@ -21,8 +21,8 @@ public final class Constants {
 
     public static final int dPosFactor = 42;
 
-    public static final double dMinOutput = -0.4;
-    public static final double dMaxOutput = 0.4;
+    public static final double dMinOutput = -0.5;
+    public static final double dMaxOutput = 0.5;
 
     public static final int dPos_Slot = 0;
     public static final double dPos_kP = 0.65; //7
@@ -31,7 +31,7 @@ public final class Constants {
     public static final double dPos_kF = 0.0;
 
     public static final double dClosedLoop_Ramp = 1.0;
-    public static final double dOpenLoop_Ramp = 0.25;
+    public static final double dOpenLoop_Ramp = 0.0; //.25
 
     public static final int dSmart_Motion_Slot = 1;
     public static final double dSmart_Motion_kP = 1.0;

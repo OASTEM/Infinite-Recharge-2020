@@ -32,9 +32,9 @@ public class OuttakeBalls extends CommandBase {
   @Override
   public void initialize() {
     RobotContainer.lowDumper.outtake();
-    if(isAuto) {
-      RobotContainer.drive.drivePercent(-.15, -.15);
-    }
+    // if(isAuto) {
+    //   RobotContainer.drive.drivePercent(-.15, -.15);
+    // }
     timer.start();
   }
 
@@ -47,12 +47,15 @@ public class OuttakeBalls extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.lowDumper.stop();
-    RobotContainer.drive.stop();
+    //RobotContainer.drive.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.get() > timeout;
+    if (isAuto) {
+      return timer.get() > timeout;
+    }
+    else return false;
   }
 }

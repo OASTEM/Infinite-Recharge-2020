@@ -171,7 +171,8 @@ public class RobotContainer {
       return r_autoCommand;
     }
     else {
-      return new DriveDistance(-10, "B", 0);
+      //return new DriveDistance(7, "B", 0);
+      return m_autoCommand;
     }
   }
 }

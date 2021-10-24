@@ -13,6 +13,7 @@ import frc.robot.Constants;
 import frc.robot.LogitechGamingPad;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class GamepadDrive extends CommandBase {
   /**
@@ -52,6 +53,8 @@ public class GamepadDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putNumber("DriveTrain Left Pos", RobotContainer.drive.getLeftPosition());
+    SmartDashboard.putNumber("DriveTrain Right Pos", RobotContainer.drive.getRightPosition());
     double leftJoystick = RobotContainer.drivePad.getLeftAnalogY();
     double rightJoystick = RobotContainer.drivePad.getRightAnalogY();
     RobotContainer.drive.drivePercent(Robot.driveConstant * leftJoystick, Robot.driveConstant * rightJoystick);

@@ -36,12 +36,23 @@ public class TurnAngle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // current angle
     double currentAngle = RobotContainer.navX.getAngle();
     System.out.println(currentAngle);
-    double power = ((angle - currentAngle)/angle)*(angle*0.0146);
+    
+    // calculate poewr
+    // (angle - currentAngle) = error, dividing it by angle gives us our power
+    // 0.0146 = P
+    double power = ((angle - currentAngle)/angle)*1.3;//*(angle*0.0146);
+    
+    // left is negative angle
+    // right is positive
+
+  
     if (angle > 0) {
-      if (power > .15) {
-        RobotContainer.drive.drivePercentOutput(-.15, .15);
+      if (power > .25) {
+        //^this if block sets a max power
+        RobotContainer.drive.drivePercentOutput(-.25, .25);
         System.out.println("first condition");
       } else {
         System.out.println("else");
@@ -50,14 +61,14 @@ public class TurnAngle extends CommandBase {
     }
     else if (angle < 0) {
       power *= -1;
-      if (Math.abs(power) > 0.15) {
-        RobotContainer.drive.drivePercentOutput(.15, -.15);
+      if (Math.abs(power) > 0.25) {
+        RobotContainer.drive.drivePercentOutput(.25, -.25);
       }
       else RobotContainer.drive.drivePercentOutput(power,-power);
     }
-    System.out.println("Target: " + angle);
-      System.out.println("Current Angle: " +currentAngle);
-      System.out.println("Power: " + power);
+    // System.out.println("Target: " + angle);
+    //   System.out.println("Current Angle: " +currentAngle);
+    //   System.out.println("Power: " + power);
 
   }
 

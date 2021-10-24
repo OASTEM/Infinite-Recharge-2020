@@ -56,7 +56,6 @@ public class DriveTrain extends SubsystemBase {
     //leftEncoder = backLeft.getEncoder();
     //rightEncoder = backRight.getEncoder();
 
-
     backLeft.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
     backRight.setOpenLoopRampRate(Constants.dOpenLoop_Ramp);
 
@@ -66,9 +65,10 @@ public class DriveTrain extends SubsystemBase {
     frontLeft.follow(backLeft, false);
     frontRight.follow(backRight, false);
     
-    backLeft.setInverted(true);
-    backRight.setInverted(true);
-
+    frontLeft.setInverted(true);
+    frontRight.setInverted(true);
+    backLeft.setInverted(false);
+    backRight.setInverted(false);
     leftController = backLeft.getPIDController();
     rightController = backRight.getPIDController();
 
@@ -79,13 +79,13 @@ public class DriveTrain extends SubsystemBase {
 
     
     //sets PID gains for position control for the left pid controller
-    leftController.setP(0.8, Constants.dPos_Slot);
+    leftController.setP(0.3, Constants.dPos_Slot);
     leftController.setI(Constants.dPos_kI, Constants.dPos_Slot);
     leftController.setD(Constants.dPos_kD, Constants.dPos_Slot);
     leftController.setFF(Constants.dPos_kF, Constants.dPos_Slot);
     
     //sets PID gains for position control for the right pid controller
-    rightController.setP(0.4, Constants.dPos_Slot);
+    rightController.setP(0.25, Constants.dPos_Slot);
     rightController.setI(Constants.dPos_kI, Constants.dPos_Slot);
     rightController.setD(Constants.dPos_kD, Constants.dPos_Slot);
     rightController.setFF(Constants.dPos_kF, Constants.dPos_Slot);
@@ -264,8 +264,9 @@ public class DriveTrain extends SubsystemBase {
   
 
   public void drivePosition(double goal) {
-    goal /= 19;
-    leftController.setReference(-goal/2, ControlType.kPosition, Constants.dPos_Slot);
+    //goal /= 19;
+    //System.out.println(goal);
+    leftController.setReference(-goal, ControlType.kPosition, Constants.dPos_Slot);
     rightController.setReference(goal, ControlType.kPosition, Constants.dPos_Slot);
   }
 
