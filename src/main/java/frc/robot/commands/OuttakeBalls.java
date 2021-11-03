@@ -33,7 +33,7 @@ public class OuttakeBalls extends CommandBase {
   public void initialize() {
     RobotContainer.lowDumper.outtake();
     // if(isAuto) {
-    //   RobotContainer.drive.drivePercent(-.15, -.15);
+    //   RobotContainer.drive.drivePercent(-.15, .15);
     // }
     timer.start();
   }

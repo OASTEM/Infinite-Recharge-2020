@@ -40,14 +40,14 @@ public class DriveDistance extends CommandBase {
     if(feedbackChoice.equals("B")) {
       RobotContainer.drive.drivePosition(goal);
     }
-    /*else if(feedbackChoice.equals("R")) {
+    else if(feedbackChoice.equals("R")) {
       RobotContainer.drive.driveRightPosition(goal);
       RobotContainer.drive.backLeft.set(RobotContainer.drive.backRight.get());
     }
     else {
       RobotContainer.drive.driveLeftPosition(goal);
       RobotContainer.drive.backRight.set(RobotContainer.drive.backLeft.get());
-    }*/
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
