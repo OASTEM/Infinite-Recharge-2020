@@ -74,7 +74,7 @@ public class DriveDistance extends CommandBase {
   public boolean isFinished() {
     //return false;
     if(feedbackChoice.equals("B")) {
-      return (timer.get() >= 0.5 && (Math.abs(RobotContainer.drive.backLeft.get()) < 0.08 && Math.abs(RobotContainer.drive.backRight.get()) < 0.08)) || (timer.get() > 4);
+      return (timer.get() >= 0.5 && (Math.abs(RobotContainer.drive.backLeft.get()) < 0.08 && Math.abs(RobotContainer.drive.backRight.get()) < 0.08)) || (timer.get() > 3);
     } //.5
     else if(feedbackChoice.equals("R")){
       return (timer.get() >= 0.5 && (Math.abs(RobotContainer.drive.backRight.get()) < 0.08)) || (timer.get() > 4);
