@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/*
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -14,7 +15,9 @@ public class GoToGoalColor extends CommandBase {
   /**
    * Creates a new GoToGoalColor.
    */
-  String goalColor;
+  
+  /*
+   String goalColor;
 
   public GoToGoalColor(String goalColor) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -50,3 +53,5 @@ public class GoToGoalColor extends CommandBase {
     return goalColor.length() == 0 || (RobotContainer.cp_Man.getColor().equals(goalColor.substring(0,1)));
   }
 }
+
+*/

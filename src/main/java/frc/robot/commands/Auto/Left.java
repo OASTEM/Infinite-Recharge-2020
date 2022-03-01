@@ -22,6 +22,6 @@ public class Left extends SequentialCommandGroup {
   public Left() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new TurnAngle(14), new DriveDistance(132, "B", 0.5), new TurnAngle(-13), new DriveDistance(12, "B", 0.5), new OuttakeBalls(.8, true));
+    super(new TurnAngle(18), new DriveDistance(135, "B", 0.5), new TurnAngle(-21), new DriveDistance(25, "B", 0.5), new OuttakeBalls(.8, true));
   }
 }

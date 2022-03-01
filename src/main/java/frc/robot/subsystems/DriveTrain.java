@@ -79,13 +79,13 @@ public class DriveTrain extends SubsystemBase {
 
     
     //sets PID gains for position control for the left pid controller
-    leftController.setP(0.32, Constants.dPos_Slot);
+    leftController.setP(0.40, Constants.dPos_Slot);
     leftController.setI(Constants.dPos_kI, Constants.dPos_Slot);
     leftController.setD(Constants.dPos_kD, Constants.dPos_Slot);
     leftController.setFF(Constants.dPos_kF, Constants.dPos_Slot);
     
     //sets PID gains for position control for the right pid controller
-    rightController.setP(0.2, Constants.dPos_Slot);
+    rightController.setP(0.25, Constants.dPos_Slot);
     rightController.setI(Constants.dPos_kI, Constants.dPos_Slot);
     rightController.setD(Constants.dPos_kD, Constants.dPos_Slot);
     rightController.setFF(Constants.dPos_kF, Constants.dPos_Slot);

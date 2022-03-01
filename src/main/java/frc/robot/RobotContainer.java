@@ -41,9 +41,9 @@ public class RobotContainer {
   public static final LogitechGamingPad drivePad = new LogitechGamingPad(0);
   public static final LogitechGamingPad opPad = new LogitechGamingPad(1);
   public static final DriveTrain drive = new DriveTrain();
-  public static final Jevois jevois = new Jevois();
+  //public static final Jevois jevois = new Jevois();
   public static final Climber climber = new Climber();
-  public static final ControlPanelMan cp_Man = new ControlPanelMan();
+ // public static final ControlPanelMan cp_Man = new ControlPanelMan();
   public static final HighShooter highShooter = new HighShooter();
   public static final LowDumper lowDumper = new LowDumper();
   public static final NavX navX = new NavX();
@@ -75,7 +75,7 @@ public class RobotContainer {
     
     configureButtonBindings();
 
-    jevois.initializeSerialPort();
+    //jevois.initializeSerialPort();
 
     drive.setDefaultCommand(new GamepadDrive());
     climber.setDefaultCommand(new GamepadClimb());
@@ -138,7 +138,7 @@ public class RobotContainer {
 
     opRightBumper = new JoystickButton(opPad, 6);
     //opRightBumper.whenPressed(new GoToGoalColor(DriverStation.getInstance().getGameSpecificMessage()));
-    opRightBumper.whenPressed(new GoToGoalColorGroup(DriverStation.getInstance().getGameSpecificMessage()));
+    //opRightBumper.whenPressed(new GoToGoalColorGroup(DriverStation.getInstance().getGameSpecificMessage()));
   
     JoystickButton trigger = new JoystickButton(attacStick, 1);
     trigger.whileHeld(new GroundIntake());
@@ -171,8 +171,8 @@ public class RobotContainer {
       return r_autoCommand;
     }
     else {
-      return new DriveDistance(95, "B", 0);
-      //return m_autoCommand;
+      return new DriveDistance(-60, "B", 0);
+       
     }
   }
 }

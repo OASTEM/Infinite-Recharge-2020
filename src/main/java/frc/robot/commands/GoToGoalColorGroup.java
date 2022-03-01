@@ -5,6 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+
+/** 
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -16,9 +18,13 @@ public class GoToGoalColorGroup extends SequentialCommandGroup {
   /**
    * Creates a new GoToGoalColorGroup.
    */
+
+/** 
   public GoToGoalColorGroup(String goal) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(new GoToGoalColor("Y"), new GoToGoalColor(goal));
   }
 }
+
+**/

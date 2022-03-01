@@ -25,7 +25,7 @@ public class Middle extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     //super(new DriveDistance(120, "B", 0.5), new OuttakeBalls(1.0, true), new DriveDistance(-150, "B", 0));
-    super(new DriveDistance(120, "B", 0.5), new OuttakeBalls(1.0, true));
+    super(new DriveDistance(141, "B", 0.5), new DriveDistance(8, "B", 0.5),new OuttakeBalls(1.0, true));
     //super(new TurnAngle(90), new DriveDistance(5,"B",0.5), new OuttakeBalls(0.8, true));
   }
 }

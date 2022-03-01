@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/** 
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -24,6 +25,7 @@ public class ControlPanelMan extends SubsystemBase {
    * Creates a new ControlPanelMan.
    */
 
+   /** 
   private VictorSPX cpMan = new VictorSPX(13);
   // VictorSPX 13
 
@@ -38,12 +40,15 @@ public class ControlPanelMan extends SubsystemBase {
   private final Color kRedTarget = ColorMatch.makeColor(0.627, 0.310, 0.063); //.561, .232, .114
   private final Color kYellowTarget = ColorMatch.makeColor(0.386, 0.516, 0.088);//.361, .524, .113
 
-  /*//Field Wheel
+
+  
+  //Field Wheel
   private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429); //.143,.427,.429
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240); //.197,.561,.240
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114); //.561, .232, .114
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);//.361, .524, .113*/
 
+ /**
   private final String[] colorList = {"Y", "R", "G", "B"};
 
   private String colorString;
@@ -68,6 +73,8 @@ public class ControlPanelMan extends SubsystemBase {
     System.out.println("Green: " + detectedColor.green);
     System.out.println("Blue: " + detectedColor.blue);
     */
+
+    /**
     if (match.color == kBlueTarget) {
       colorString = "B";
     } else if (match.color == kRedTarget) {
@@ -97,3 +104,4 @@ public class ControlPanelMan extends SubsystemBase {
     return colorList[(colorInt+2)%4];
   }
 }
+**/

@@ -23,6 +23,6 @@ public class Right extends SequentialCommandGroup {
   public Right() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new TurnAngle(-16), new DriveDistance(132, "B", 0.5), new TurnAngle(12), new DriveDistance(20, "B", 0.5), new OuttakeBalls(.8, true));
+    super(new DriveDistance(5, "B", 0.2), new TurnAngle(-23), new DriveDistance(132, "B", 0.5), new TurnAngle(15), new DriveDistance(25, "B", 0.5), new OuttakeBalls(.8, true));
   }
 }
